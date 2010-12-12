@@ -1,7 +1,7 @@
 <?php
-namespace Aphera;
+namespace Aphera\Server;
 
-interface MediaCollectionAdapter
+interface MediaCollectionAdapter extends CollectionAdapter
 {
     /**
      * Adds a new entry to the Collection. Called when a POST request containing a media resource is sent to the collection's URI

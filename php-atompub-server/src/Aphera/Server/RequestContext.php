@@ -1,5 +1,5 @@
 <?php
-namespace Aphera;
+namespace Aphera\Server;
 
 interface RequestContext
 {

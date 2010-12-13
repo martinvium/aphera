@@ -16,6 +16,9 @@ final class Aphera
         $this->config = $config;
     }
     
+    /**
+     * @return Core\Factory
+     */
     public function getFactory()
     {
         if(! $this->factory) {
@@ -25,11 +28,17 @@ final class Aphera
         return $this->factory;
     }
     
+    /**
+     * @return Core\Factory
+     */
     protected function newFactory()
     {
-        $this->config->newFactoryInstance($this);
+        return $this->config->newFactoryInstance($this);
     }
     
+    /**
+     * @return Core\Configuration 
+     */
     public function getConfiguration()
     {
         return $this->config;

@@ -1,6 +1,8 @@
 <?php
 namespace Aphera\Core;
 
+use Aphera\Model;
+
 interface Factory
 {
     public function newParser();
@@ -13,6 +15,9 @@ interface Factory
     
     public function newCollection();
     
+    /**
+     * @return Model\Entry
+     */
     public function newEntry();
     
     public function newFeed();
@@ -27,11 +32,7 @@ interface Factory
     
     public function newUpdated();
     
-    public function newGenerator();
-    
     public function newID();
-    
-    public function newUri();
     
     public function newLink();
     
@@ -39,13 +40,9 @@ interface Factory
     
     public function newSummary();
     
-    public function newElement($qname);
-    
-    public function newExtensionElement($qname);
+    public function newElement($local, $uri);
     
     public function registerExtension(ExtensionFactory $factory);
-    
-    public function newCategories();
     
     public function getAphera();
 }

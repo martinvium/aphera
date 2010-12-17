@@ -12,8 +12,7 @@ class Factory implements Core\Factory
     protected $encoding = 'utf-8';
     protected $version = '1.0';
     
-    public function __construct(Core\Aphera $aphera)
-    {
+    public function __construct(Core\Aphera $aphera) {
         $this->aphera = $aphera;
     }
     
@@ -34,26 +33,31 @@ class Factory implements Core\Factory
     }
     
     public function newContent($type) {
-        return $this->newElement('content');
+        return $this->newElement(Core\Constants::CONTENT);
+    }
+    
+    public function newContentFromDOM(\DOMElement $domElement) {
+        \assert($domElement->localName == Core\Constants::CONTENT);
+        return $this->newElementFromDOM($domElement);
     }
     
     public function newDocument() {
         return new Document($this->version, $this->encoding);
     }
     
-    public function newElement($local, $uri) {
-        return new Element($local, null, $uri);
+    public function newElement($local, $uri = null) {
+        return new Element($local, null, $uri, $this);
+    }
+    
+    protected function newElementFromDOM(\DOMElement $domElement) {
+        return new Element($domElement->localName, $domElement->nodeValue, $domElement->namespaceURI, $this);
     }
     
     public function newEntry() {
         $doc = $this->newDocument();
-        $el = $this->newElement('entry');
+        $el = new Entry($this);
         $doc->appendChild($el);
         return $el;
-    }
-    
-    public function newExtensionElement($local, $uri) {
-        return new Element($local, null, $uri);
     }
     
     public function newFeed() {
@@ -64,7 +68,12 @@ class Factory implements Core\Factory
     }
     
     public function newID() {
-        return $this->newElement('id');
+        return $this->newElement(Core\Constants::ID);
+    }
+    
+    public function newIdFromDOM(\DOMElement $domElement) {
+        \assert($domElement->localName == Core\Constants::ID);
+        return $this->newElementFromDOM($domElement);
     }
     
     public function newLink() {
@@ -87,11 +96,21 @@ class Factory implements Core\Factory
     }
     
     public function newSummary() {
-        return $this->newElement('summary');
+        return $this->newElement(Core\Constants::SUMMARY);
+    }
+    
+    public function newSummaryFromDOM(\DOMElement $domElement) {
+        \assert($domElement->localName == Core\Constants::SUMMARY);
+        return $this->newElementFromDOM($domElement);
     }
     
     public function newTitle() {
-        return $this->newElement('title');
+        return $this->newElement(Core\Constants::TITLE);
+    }
+    
+    public function newTitleFromDOM(\DOMElement $domElement) {
+        \assert($domElement->localName == Core\Constants::TITLE);
+        return $this->newElementFromDOM($domElement);
     }
     
     public function newUpdated() {
@@ -102,7 +121,7 @@ class Factory implements Core\Factory
         return $this->newElement('workspace');
     }
     
-    public function registerExtension(ExtensionFactory $factory) {
+    public function registerExtension(Core\ExtensionFactory $factory) {
         
     }
 }

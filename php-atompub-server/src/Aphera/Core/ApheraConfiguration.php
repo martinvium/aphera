@@ -33,23 +33,13 @@ class ApheraConfiguration implements Configuration
 
     public function newFactoryInstance(Aphera $aphera)
     {
-        $class = Constants::CONFIG_FACTORY;
-        return $this->load($class, Constants::DEFAULT_FACTORY);
+        $class = $this->getConfigurationOption(Constants::CONFIG_FACTORY, Constants::DEFAULT_FACTORY);
+        return new $class($aphera);
     }
 
     public function newParserInstance(Aphera $aphera)
     {
-        $class = Constants::CONFIG_PARSER;
-        return $this->load($class, Constants::DEFAULT_PARSER);
-    }
-    
-    private function load($class, $defaultClass)
-    {
-        $do_autoload = true;
-        if(\class_exists($class, $do_autoload)) {
-            return new $class;
-        } else {
-            return new $defaultClass;
-        }
+        $class = $this->getConfigurationOption(Constants::CONFIG_PARSER, Constants::DEFAULT_PARSER);
+        return new $class($aphera);
     }
 }

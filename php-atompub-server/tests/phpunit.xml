@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
+<phpunit bootstrap="./bootstrap.php">
+    <testsuite name="Aphera Test Suite">
+        <directory>./Aphera/</directory>
+    </testsuite>
 
-<!-- see http://www.phpunit.de/wiki/Documentation -->
-<!--phpunit bootstrap="/path/to/bootstrap.php"
-         colors="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         stopOnFailure="true">
-</phpunit-->
+    <groups>
+        <exclude>
+            <group>disable</group>
+        </exclude>
+    </groups>
 
-<phpunit colors="false" />
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

@@ -1,4 +1,17 @@
 <?php
-$libPath = dirname(dirname(__FILE__)) . '/src/';
-ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . $libPath);
+$apheraRoot = realpath(dirname(dirname(__FILE__)));
+$apheraTests = $apheraRoot . '/tests';
+$apheraLibrary = $apheraRoot . '/src';
 
+$path = array(
+    $apheraLibrary,
+    $apheraTests,
+    get_include_path()
+);
+
+set_include_path(implode(PATH_SEPARATOR, $path));
+
+require_once($apheraLibrary . '/Aphera/Core/Loader.php');
+Aphera\Core\Loader::registerAutoload();
+
+require_once('PHPUnit/Framework/TestCase.php');

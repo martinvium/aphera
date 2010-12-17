@@ -10,7 +10,7 @@ final class Aphera
     public function __construct(Configuration $config = null)
     {
         if(! $config) {
-            $config = ApheraConfiguration::getDefaultConfiguration();
+            $config = ApheraConfiguration::getDefault();
         }
         
         $this->config = $config;

@@ -3,18 +3,25 @@ namespace Aphera\Core;
 
 final class Constants
 {
-    const CONFIG_PARSER = "org.apache.abdera.parser.Parser";
-    const CONFIG_FACTORY = "org.apache.abdera.factory.Factory";
-    const CONFIG_XPATH = "org.apache.abdera.xpath.XPath";
-    const CONFIG_PARSERFACTORY = "org.apache.abdera.parser.ParserFactory";
-    const CONFIG_WRITERFACTORY = "org.apache.abdera.writer.WriterFactory";
-    const CONFIG_WRITER = "org.apache.abdera.writer.Writer";
-    const CONFIG_STREAMWRITER = "org.apache.abdera.writer.StreamWriter";
-    const DEFAULT_PARSER = "org.apache.abdera.parser.stax.FOMParser";
-    const DEFAULT_FACTORY = "org.apache.abdera.parser.stax.FOMFactory";
-    const DEFAULT_XPATH = "org.apache.abdera.parser.stax.FOMXPath";
-    const DEFAULT_PARSERFACTORY = "org.apache.abdera.parser.stax.FOMParserFactory";
-    const DEFAULT_WRITERFACTORY = "org.apache.abdera.parser.stax.FOMWriterFactory";
-    const DEFAULT_WRITER = "org.apache.abdera.parser.stax.FOMWriter";
-    const DEFAULT_STREAMWRITER = "org.apache.abdera.parser.stax.StaxStreamWriter";
+    const CONFIG_PARSER = "Aphera\\Core\\Parser";
+    const CONFIG_FACTORY = "Aphera\\Core\\Factory";
+//    const CONFIG_XPATH = "org.apache.abdera.xpath.XPath";
+//    const CONFIG_PARSERFACTORY = "org.apache.abdera.parser.ParserFactory";
+//    const CONFIG_WRITERFACTORY = "org.apache.abdera.writer.WriterFactory";
+    const CONFIG_WRITER = "Aphera\\Core\\Writer";
+    
+    const DEFAULT_PARSER = "Aphera\\Parser\\DOM\\Parser";
+    const DEFAULT_FACTORY = "Aphera\\Parser\\DOM\\Factory";
+//    const DEFAULT_XPATH = "org.apache.abdera.parser.stax.FOMXPath";
+//    const DEFAULT_PARSERFACTORY = "org.apache.abdera.parser.stax.FOMParserFactory";
+//    const DEFAULT_WRITERFACTORY = "org.apache.abdera.parser.stax.FOMWriterFactory";
+    const DEFAULT_WRITER = "Aphera\\Parser\\DOM\\Writer";
+//    const DEFAULT_STREAMWRITER = "org.apache.abdera.parser.stax.StaxStreamWriter";
+    
+    const ATOM_NS = "http://www.w3.org/2005/Atom";
+    
+    const CONTENT = "content";
+    const SUMMARY = "summary";
+    const ID = "id";
+    const TITLE = "title";
 }

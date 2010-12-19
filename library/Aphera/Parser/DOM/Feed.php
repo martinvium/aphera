@@ -4,16 +4,15 @@ namespace Aphera\Parser\DOM;
 use Aphera\Model;
 use Aphera\Core;
 
-class Feed extends ExtensibleElement implements Model\Feed
+class Feed extends Source implements Model\Feed
 {
     const ENTRY_CLASS = "\\Aphera\\Parser\\DOM\\Entry";
     
-    public function __construct(Core\Factory $factory) {
-        parent::__construct(Core\Constants::FEED, null, Core\Constants::ATOM_NS, $factory);
+    public function __construct(Core\Factory $factory = null) {
+        parent::__construct(Core\Constants::FEED, $factory);
     }
     
     /**
-     *
      * @return array of Model\Entry
      */
     public function getEntries() {

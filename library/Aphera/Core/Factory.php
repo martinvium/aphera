@@ -16,11 +16,14 @@ interface Factory
     public function newCollection();
     
     /**
+     * @param Model\ExtensibleElement $parent
      * @return Model\Entry
      */
-    public function newEntry();
+    public function newEntry(Model\ExtensibleElement $parent = null);
     
     public function newFeed();
+    
+    public function newSource(Model\ExtensibleElement $parent = null);
     
     public function newCategories();
     

@@ -63,16 +63,24 @@ class Factory implements Core\Factory
             $parent = $this->newDocument();
         }
         
-        $el = new Entry($this);
-        $parent->appendChild($el);
+        $element = new Entry($this);
+        $parent->appendChild($element);
+        return $element;
+    }
+    
+    public function newSource(Model\ExtensibleElement $parent = null) {
+        $element = new Source(null, $this);
+        if($parent) {
+            $parent->appendChild($element);
+        }
         return $el;
     }
     
     public function newFeed() {
         $doc = $this->newDocument();
-        $el = new Feed($this);
-        $doc->appendChild($el);
-        return $el;
+        $element = new Feed($this);
+        $doc->appendChild($element);
+        return $element;
     }
     
     public function newID() {

@@ -1,7 +1,7 @@
 <?php
 namespace Aphera\Model;
 
-interface Feed extends ExtensibleElement
+interface Feed extends Source
 {
     /**
      * @return array of Entry

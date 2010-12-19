@@ -4,7 +4,7 @@ namespace Tests\Aphera\Parser\DOM;
 use Aphera\Core;
 use Aphera\Parser\DOM;
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/Bootstrap.php');
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {

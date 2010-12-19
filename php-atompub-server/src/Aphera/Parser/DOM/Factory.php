@@ -21,19 +21,19 @@ class Factory implements Core\Factory
     }
     
     public function newCategories() {
-        return $this->newElement('categories');
+        return $this->newElement('categories', Core\Constants::ATOM_NS);
     }
     
     public function newCategory() {
-        return $this->newElement('category');
+        return $this->newElement('category', Core\Constants::ATOM_NS);
     }
     
     public function newCollection() {
-        return $this->newElement('collection');
+        return $this->newElement('collection', Core\Constants::ATOM_NS);
     }
     
     public function newContent($type) {
-        return $this->newElement(Core\Constants::CONTENT);
+        return $this->newElement(Core\Constants::CONTENT, Core\Constants::ATOM_NS);
     }
     
     public function newContentFromDOM(\DOMElement $domElement) {
@@ -68,7 +68,7 @@ class Factory implements Core\Factory
     }
     
     public function newID() {
-        return $this->newElement(Core\Constants::ID);
+        return $this->newElement(Core\Constants::ID, Core\Constants::ATOM_NS);
     }
     
     public function newIdFromDOM(\DOMElement $domElement) {
@@ -77,7 +77,7 @@ class Factory implements Core\Factory
     }
     
     public function newLink() {
-        return $this->newElement('link');
+        return $this->newElement('link', Core\Constants::ATOM_NS);
     }
     
     public function newParser() {
@@ -85,31 +85,27 @@ class Factory implements Core\Factory
     }
     
     public function newPublished() {
-        return $this->newElement('published');
+        return $this->newElement('published', Core\Constants::ATOM_NS);
     }
     
     public function newService() {
         $doc = $this->newDocument();
-        $el = $this->newElement('service');
+        $el = $this->newElement('service', Core\Constants::ATOM_NS);
         $doc->appendChild($el);
         return $el;
     }
     
     public function newSummary() {
-        return $this->newElement(Core\Constants::SUMMARY);
+        return $this->newElement(Core\Constants::SUMMARY, Core\Constants::ATOM_NS);
     }
     
     public function newSummaryFromDOM(\DOMElement $domElement) {
-        if($domElement->localName != Core\Constants::SUMMARY) {
-            throw new \InvalidArgumentException($domElement->localName);
-        }
-        
         \assert($domElement->localName == Core\Constants::SUMMARY);
         return $this->newElementFromDOM($domElement);
     }
     
     public function newTitle() {
-        return $this->newElement(Core\Constants::TITLE);
+        return $this->newElement(Core\Constants::TITLE, Core\Constants::ATOM_NS);
     }
     
     public function newTitleFromDOM(\DOMElement $domElement) {
@@ -118,11 +114,11 @@ class Factory implements Core\Factory
     }
     
     public function newUpdated() {
-        return $this->newElement('updated');
+        return $this->newElement('updated', Core\Constants::ATOM_NS);
     }
     
     public function newWorkspace() {
-        return $this->newElement('workspace');
+        return $this->newElement('workspace', Core\Constants::ATOM_NS);
     }
     
     public function registerExtension(Core\ExtensionFactory $factory) {

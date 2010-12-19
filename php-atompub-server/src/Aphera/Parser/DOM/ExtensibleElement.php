@@ -21,12 +21,14 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
      * @param string $uri
      * @return Model\Element
      */
-    protected function getFirstChildByTagName($name, $uri) {
+    public function getFirstChildByTagName($name, $uri = null) {
         $el = null;
         foreach($this->childNodes as $node) {
-            var_dump($node);
-            if($node->nodeType == \XML_ELEMENT_NODE) {
-                $el = $node;
+            if($node->nodeType == \XML_ELEMENT_NODE && $node->localName == $name) {
+                var_dump($node->namespaceURI);
+                if($uri === null || $uri == $node->namespaceURI) {
+                    $el = $node;
+                }
             }
         }
         return $el;

@@ -46,11 +46,11 @@ class Factory implements Core\Factory
     }
     
     public function newElement($local, $uri = null) {
-        return new Element($local, null, $uri, $this);
+        return new ExtensibleElement($local, null, $uri, $this);
     }
     
     protected function newElementFromDOM(\DOMElement $domElement) {
-        return new Element($domElement->localName, $domElement->nodeValue, $domElement->namespaceURI, $this);
+        return new ExtensibleElement($domElement->localName, $domElement->nodeValue, $domElement->namespaceURI, $this);
     }
     
     public function newEntry() {
@@ -100,6 +100,10 @@ class Factory implements Core\Factory
     }
     
     public function newSummaryFromDOM(\DOMElement $domElement) {
+        if($domElement->localName != Core\Constants::SUMMARY) {
+            throw new \InvalidArgumentException($domElement->localName);
+        }
+        
         \assert($domElement->localName == Core\Constants::SUMMARY);
         return $this->newElementFromDOM($domElement);
     }

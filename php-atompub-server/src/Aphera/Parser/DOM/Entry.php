@@ -17,7 +17,10 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function addLink($href, $rel = null, $title = null) {
-        
+        $link = $this->factory->newLink($this);
+        $link->setHref($href);
+        $link->setRel($rel);
+        $link->setTitle($title);
     }
 
     public function getContent() {
@@ -31,7 +34,7 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getId() {
-        
+        return $this->getIdElement()->nodeValue;
     }
 
     public function getIdElement() {
@@ -40,8 +43,15 @@ class Entry extends ExtensibleElement implements Model\Entry
         return $element;
     }
 
-    public function getLinks() {
+    public function getLinks($rel = null) {
+        $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Link');
+        $elements = $this->getChildrenWithName(Core\Constants::LINK);
         
+        if($rel !== null) {
+            $elements = $this->getFilteredElementsByAttribute($elements, Core\Constants::REL, $rel, Core\Constants::ATOM_NS);
+        }
+        
+        return $elements;
     }
 
     public function getSummary() {
@@ -75,7 +85,9 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function setId($id) {
-        
+        $element = $this->factory->newID();
+        $element->nodeValue = (string)$id;
+        $this->appendChild($element);
     }
 
     public function setSummary($value) {

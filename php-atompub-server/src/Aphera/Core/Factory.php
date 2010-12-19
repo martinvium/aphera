@@ -34,7 +34,10 @@ interface Factory
     
     public function newID();
     
-    public function newLink();
+    /**
+     * @return Model\Link
+     */
+    public function newLink($parent = null);
     
     public function newTitle();
     

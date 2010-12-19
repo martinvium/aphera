@@ -40,6 +40,11 @@ class Factory implements Core\Factory
         return new Document($this->version, $this->encoding);
     }
     
+    /**
+     * @param string $local
+     * @param string $uri
+     * @return ExtensibleElement
+     */
     public function newElement($local, $uri = null) {
         return new ExtensibleElement($local, null, $uri, $this);
     }
@@ -62,8 +67,13 @@ class Factory implements Core\Factory
         return $this->newElement(Core\Constants::ID, Core\Constants::ATOM_NS);
     }
     
-    public function newLink() {
-        return $this->newElement('link', Core\Constants::ATOM_NS);
+    public function newLink($parent = null) {
+        $element =  $this->newElement(Core\Constants::LINK, Core\Constants::ATOM_NS);
+        $element = new Link($this);
+        if($parent) {
+            $parent->appendChild($element);
+        }
+        return $element;
     }
     
     public function newParser() {

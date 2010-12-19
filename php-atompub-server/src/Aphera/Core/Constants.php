@@ -24,4 +24,7 @@ final class Constants
     const SUMMARY = "summary";
     const ID = "id";
     const TITLE = "title";
+    const LINK = "link";
+    const HREF= "href";
+    const REL = "rel";
 }

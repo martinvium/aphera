@@ -17,7 +17,7 @@ interface Entry extends ExtensibleElement
     
     public function newId();
     
-    public function getLinks();
+    public function getLinks($rel = null);
     
     public function addLink($href, $rel = null, $title = null);
     

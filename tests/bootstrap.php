@@ -1,7 +1,7 @@
 <?php
 $apheraRoot = realpath(dirname(dirname(__FILE__)));
 $apheraTests = $apheraRoot . '/tests';
-$apheraLibrary = $apheraRoot . '/src';
+$apheraLibrary = $apheraRoot . '/library';
 
 $path = array(
     $apheraLibrary,

@@ -36,21 +36,12 @@ class Factory implements Core\Factory
         return $this->newElement(Core\Constants::CONTENT, Core\Constants::ATOM_NS);
     }
     
-    public function newContentFromDOM(\DOMElement $domElement) {
-        \assert($domElement->localName == Core\Constants::CONTENT);
-        return $this->newElementFromDOM($domElement);
-    }
-    
     public function newDocument() {
         return new Document($this->version, $this->encoding);
     }
     
     public function newElement($local, $uri = null) {
         return new ExtensibleElement($local, null, $uri, $this);
-    }
-    
-    protected function newElementFromDOM(\DOMElement $domElement) {
-        return new ExtensibleElement($domElement->localName, $domElement->nodeValue, $domElement->namespaceURI, $this);
     }
     
     public function newEntry() {
@@ -69,11 +60,6 @@ class Factory implements Core\Factory
     
     public function newID() {
         return $this->newElement(Core\Constants::ID, Core\Constants::ATOM_NS);
-    }
-    
-    public function newIdFromDOM(\DOMElement $domElement) {
-        \assert($domElement->localName == Core\Constants::ID);
-        return $this->newElementFromDOM($domElement);
     }
     
     public function newLink() {
@@ -99,18 +85,8 @@ class Factory implements Core\Factory
         return $this->newElement(Core\Constants::SUMMARY, Core\Constants::ATOM_NS);
     }
     
-    public function newSummaryFromDOM(\DOMElement $domElement) {
-        \assert($domElement->localName == Core\Constants::SUMMARY);
-        return $this->newElementFromDOM($domElement);
-    }
-    
     public function newTitle() {
         return $this->newElement(Core\Constants::TITLE, Core\Constants::ATOM_NS);
-    }
-    
-    public function newTitleFromDOM(\DOMElement $domElement) {
-        \assert($domElement->localName == Core\Constants::TITLE);
-        return $this->newElementFromDOM($domElement);
     }
     
     public function newUpdated() {

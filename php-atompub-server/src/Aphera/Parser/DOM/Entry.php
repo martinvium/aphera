@@ -25,8 +25,9 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getContentElement() {
+        $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
         $element = $this->getFirstChildByTagName(Core\Constants::CONTENT, Core\Constants::ATOM_NS);
-        return $this->factory->newContentFromDOM($element);
+        return $element;
     }
 
     public function getId() {
@@ -34,8 +35,9 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getIdElement() {
+        $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
         $element = $this->getFirstChildByTagName(Core\Constants::ID, Core\Constants::ATOM_NS);
-        return $this->factory->newIdFromDOM($element);
+        return $element;
     }
 
     public function getLinks() {
@@ -47,8 +49,9 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getSummaryElement() {
+        $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
         $element = $this->getFirstChildByTagName(Core\Constants::SUMMARY, Core\Constants::ATOM_NS);
-        return $this->factory->newSummaryFromDOM($element);
+        return $element;
     }
 
     public function getTitle() {
@@ -56,8 +59,9 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getTitleElement() {
+        $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
         $element = $this->getFirstChildByTagName(Core\Constants::TITLE, Core\Constants::ATOM_NS);
-        return $this->factory->newTitleFromDOM($element);
+        return $element;
     }
 
     public function newId() {

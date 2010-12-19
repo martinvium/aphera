@@ -48,7 +48,7 @@ class Entry extends ExtensibleElement implements Model\Entry
         $elements = $this->getChildrenWithName(Core\Constants::LINK);
         
         if($rel !== null) {
-            $elements = $this->getFilteredElementsByAttribute($elements, Core\Constants::REL, $rel, Core\Constants::ATOM_NS);
+            $elements = Helper::getFilteredElementsByAttribute($elements, Core\Constants::REL, $rel, Core\Constants::ATOM_NS);
         }
         
         return $elements;

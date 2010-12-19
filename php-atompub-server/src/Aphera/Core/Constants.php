@@ -20,6 +20,8 @@ final class Constants
     
     const ATOM_NS = "http://www.w3.org/2005/Atom";
     
+    const FEED = "feed";
+    const ENTRY = "entry";
     const CONTENT = "content";
     const SUMMARY = "summary";
     const ID = "id";

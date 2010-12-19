@@ -58,16 +58,19 @@ class Factory implements Core\Factory
         return new ExtensibleElement($local, null, $uri, $this);
     }
     
-    public function newEntry() {
-        $doc = $this->newDocument();
+    public function newEntry(Model\ExtensibleElement $parent = null) {
+        if(! $parent) {
+            $parent = $this->newDocument();
+        }
+        
         $el = new Entry($this);
-        $doc->appendChild($el);
+        $parent->appendChild($el);
         return $el;
     }
     
     public function newFeed() {
         $doc = $this->newDocument();
-        $el = $this->newElement('feed');
+        $el = new Feed($this);
         $doc->appendChild($el);
         return $el;
     }

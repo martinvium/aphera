@@ -13,7 +13,7 @@ class Entry extends ExtensibleElement implements Model\Entry
     protected $title;
 
     public function __construct(Core\Factory $factory) {
-        parent::__construct('entry', null, Core\Constants::ATOM_NS, $factory);
+        parent::__construct(Core\Constants::ENTRY, null, Core\Constants::ATOM_NS, $factory);
     }
 
     public function addLink($href, $rel = null, $title = null) {
@@ -48,7 +48,7 @@ class Entry extends ExtensibleElement implements Model\Entry
         $elements = $this->getChildrenWithName(Core\Constants::LINK);
         
         if($rel !== null) {
-            $elements = Helper::getFilteredElementsByAttribute($elements, Core\Constants::REL, $rel, Core\Constants::ATOM_NS);
+            $elements = Helper::getElementsWithAttributeValue($elements, Core\Constants::REL, $rel, Core\Constants::ATOM_NS);
         }
         
         return $elements;

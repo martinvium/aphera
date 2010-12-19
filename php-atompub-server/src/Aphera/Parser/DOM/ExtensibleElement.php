@@ -25,7 +25,6 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
         $el = null;
         foreach($this->childNodes as $node) {
             if($node->nodeType == \XML_ELEMENT_NODE && $node->localName == $name) {
-                var_dump($node->namespaceURI);
                 if($uri === null || $uri == $node->namespaceURI) {
                     $el = $node;
                 }

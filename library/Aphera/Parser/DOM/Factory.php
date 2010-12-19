@@ -89,7 +89,7 @@ class Factory implements Core\Factory
     }
     
     public function newParser() {
-        return new Parser();
+        return new Parser($this);
     }
     
     public function newPublished() {

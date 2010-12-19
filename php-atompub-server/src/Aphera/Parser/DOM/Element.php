@@ -9,7 +9,7 @@ class Element extends \DOMElement implements Model\Element
     /**
      * @var \DOMDocument
      */
-    protected $document;
+    protected $ownerDocument;
     
     public function __construct ($name, $value, $uri) {
         parent::__construct($name, $value, $uri);

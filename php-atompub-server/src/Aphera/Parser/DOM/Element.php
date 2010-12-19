@@ -18,6 +18,10 @@ class Element extends \DOMElement implements Model\Element
     public function getTagName() {
         return $this->tagName;
     }
+    
+    public function getValue() {
+        return $this->nodeValue;
+    }
 
     /**
      * @return Core\Factory

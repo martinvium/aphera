@@ -24,7 +24,7 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getContent() {
-        return $this->getContentElement()->nodeValue;
+        return $this->getContentElement()->getValue();
     }
 
     public function getContentElement() {
@@ -34,7 +34,7 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getId() {
-        return $this->getIdElement()->nodeValue;
+        return $this->getIdElement()->getValue();
     }
 
     public function getIdElement() {
@@ -55,7 +55,7 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getSummary() {
-        return $this->getSummaryElement()->nodeValue;
+        return $this->getSummaryElement()->getValue();
     }
 
     public function getSummaryElement() {
@@ -65,7 +65,7 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getTitle() {
-        return $this->getTitleElement()->nodeValue;
+        return $this->getTitleElement()->getValue();
     }
 
     public function getTitleElement() {

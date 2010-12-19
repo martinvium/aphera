@@ -33,7 +33,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testGetContentElement_GetContentElement_ReturnsElement() {
         $element = $this->entry->getContentElement();
         $this->assertEquals(Core\Constants::CONTENT, $element->getTagName());
-        $this->assertEquals('testcontent', $element->nodeValue);
+        $this->assertEquals('testcontent', $element->getValue());
     }
     
     public function testGetContent_GetContent_ReturnsValue() {
@@ -43,7 +43,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testGetSummaryElement_GetSummaryElement_ReturnsElement() {
         $element = $this->entry->getSummaryElement();
         $this->assertEquals(Core\Constants::SUMMARY, $element->getTagName());
-        $this->assertEquals('testsummary', $element->nodeValue);
+        $this->assertEquals('testsummary', $element->getValue());
     }
     
     public function testGetSummary_GetSummary_ReturnsValue() {
@@ -53,7 +53,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testGetTitleElement_GetTitleElement_ReturnsElement() {
         $element = $this->entry->getTitleElement();
         $this->assertEquals(Core\Constants::TITLE, $element->getTagName());
-        $this->assertEquals('testtitle', $element->nodeValue);
+        $this->assertEquals('testtitle', $element->getValue());
     }
     
     public function testGetTitle_GetTitle_ReturnsValue() {
@@ -63,7 +63,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     public function testGetIdElement_GetTitleElement_ReturnsElement() {
         $element = $this->entry->getIdElement();
         $this->assertEquals(Core\Constants::ID, $element->getTagName());
-        $this->assertEquals('testid', $element->nodeValue);
+        $this->assertEquals('testid', $element->getValue());
     }
     
     public function testGetId_GetTitle_ReturnsValue() {

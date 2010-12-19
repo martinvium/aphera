@@ -79,9 +79,8 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function setContent($value) {
-        $content = $this->factory->newContent('text');
+        $content = $this->factory->newContent($this);
         $content->nodeValue = (string)$value;
-        $this->appendChild($content);
     }
 
     public function setId($id) {

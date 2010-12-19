@@ -2,6 +2,7 @@
 namespace Aphera\Parser\DOM;
 
 use Aphera\Core;
+use Aphera\Model;
 
 /**
  * http://svn.apache.org/repos/asf/abdera/java/trunk/parser/src/main/java/org/apache/abdera/parser/stax/FOMFactory.java
@@ -32,8 +33,16 @@ class Factory implements Core\Factory
         return $this->newElement('collection', Core\Constants::ATOM_NS);
     }
     
-    public function newContent($type) {
-        return $this->newElement(Core\Constants::CONTENT, Core\Constants::ATOM_NS);
+    /**
+     * @param Model\ExtensibleElement $parent
+     * @return type 
+     */
+    public function newContent(Model\ExtensibleElement $parent = null) {
+        $element = new Content($this);
+        if($parent) {
+            $parent->appendChild($element);
+        }
+        return $element;
     }
     
     public function newDocument() {
@@ -67,7 +76,7 @@ class Factory implements Core\Factory
         return $this->newElement(Core\Constants::ID, Core\Constants::ATOM_NS);
     }
     
-    public function newLink($parent = null) {
+    public function newLink(Model\ExtensibleElement $parent = null) {
         $element =  $this->newElement(Core\Constants::LINK, Core\Constants::ATOM_NS);
         $element = new Link($this);
         if($parent) {

@@ -27,4 +27,6 @@ final class Constants
     const LINK = "link";
     const HREF= "href";
     const REL = "rel";
+    const TYPE = "type";
+    const SRC = "src";
 }

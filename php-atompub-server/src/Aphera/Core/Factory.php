@@ -26,7 +26,7 @@ interface Factory
     
     public function newCategory();
     
-    public function newContent($type);
+    public function newContent(Model\ExtensibleElement $parent = null);
     
     public function newPublished();
     
@@ -37,7 +37,7 @@ interface Factory
     /**
      * @return Model\Link
      */
-    public function newLink($parent = null);
+    public function newLink(Model\ExtensibleElement $parent = null);
     
     public function newTitle();
     

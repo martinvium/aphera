@@ -15,6 +15,8 @@ interface Factory
     
     public function newCollection();
     
+    public function newWriter();
+    
     /**
      * @param Model\ExtensibleElement $parent
      * @return Model\Entry

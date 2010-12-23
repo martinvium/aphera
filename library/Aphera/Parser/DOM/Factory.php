@@ -33,6 +33,10 @@ class Factory implements Core\Factory
         return $this->newElement('collection', Core\Constants::ATOM_NS);
     }
     
+    public function newWriter() {
+        return new Writer();
+    }
+    
     /**
      * @param Model\ExtensibleElement $parent
      * @return type 

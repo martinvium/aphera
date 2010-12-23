@@ -3,6 +3,7 @@ namespace Aphera\Server\Context;
 
 use Aphera\Server\ResponseContext;
 use Aphera\Core\Protocol\AbstractResponse;
+use Aphera\Core\Writer;
 
 abstract class AbstractResponseContext extends AbstractResponse implements ResponseContext
 {
@@ -11,6 +12,11 @@ abstract class AbstractResponseContext extends AbstractResponse implements Respo
     protected $statusCode = 0;
     
     protected $statusText = '';
+    
+    /**
+     * @var Writer
+     */
+    protected $writer;
     
     public function setAllow($methods) {
         $methods = (array)$methods;
@@ -88,6 +94,11 @@ abstract class AbstractResponseContext extends AbstractResponse implements Respo
         } else {
             $this->headers[$name] = (array)$value;
         }
+        return $this;
+    }
+    
+    public function setWriter(Writer $writer) {
+        $this->writer = $writer;
         return $this;
     }
 }

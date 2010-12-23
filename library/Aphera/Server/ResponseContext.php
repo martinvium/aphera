@@ -2,6 +2,7 @@
 namespace Aphera\Server;
 
 use Aphera\Core\Protocol\Response;
+use Aphera\Core\Writer;
 
 interface ResponseContext extends Response
 {
@@ -16,4 +17,8 @@ interface ResponseContext extends Response
     public function setHeader($name, $value);
     
     public function addHeader($name, $value);
+    
+    public function setWriter(Writer $writer);
+    
+    public function writeTo($stream, Writer $writer = null);
 }

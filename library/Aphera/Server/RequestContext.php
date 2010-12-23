@@ -1,7 +1,9 @@
 <?php
 namespace Aphera\Server;
 
-interface RequestContext
+use Aphera\Core\Protocol\Request;
+
+interface RequestContext extends Request
 {
     
 }

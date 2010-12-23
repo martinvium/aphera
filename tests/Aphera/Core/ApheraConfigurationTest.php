@@ -11,14 +11,14 @@ class ApheraConfigurationTest extends \PHPUnit_Framework_TestCase
     protected $aphera;
     
     /**
-     * @var TestAsset\TestConfiguration
+     * @var TestAsset\StubConfiguration
      */
     protected $config;
 
     protected function setUp() {
         parent::setUp();
         $this->aphera = new Aphera();
-        $this->config = new TestAsset\TestConfiguration();
+        $this->config = new TestAsset\StubConfiguration();
     }
     
     public function testGetDefault_Scenario_ReturnsApheraConfiguration() {

@@ -7,8 +7,7 @@ final class Aphera
     
     private $config;
     
-    public function __construct(Configuration $config = null)
-    {
+    public function __construct(Configuration $config = null) {
         if(! $config) {
             $config = ApheraConfiguration::getDefault();
         }
@@ -19,8 +18,7 @@ final class Aphera
     /**
      * @return Core\Factory
      */
-    public function getFactory()
-    {
+    public function getFactory() {
         if(! $this->factory) {
             $this->factory = $this->newFactory();
         }
@@ -31,16 +29,14 @@ final class Aphera
     /**
      * @return Core\Factory
      */
-    protected function newFactory()
-    {
+    protected function newFactory() {
         return $this->config->newFactoryInstance($this);
     }
     
     /**
      * @return Core\Configuration 
      */
-    public function getConfiguration()
-    {
+    public function getConfiguration() {
         return $this->config;
     }
 }

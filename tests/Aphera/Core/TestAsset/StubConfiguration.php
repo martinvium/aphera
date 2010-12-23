@@ -3,7 +3,7 @@ namespace Aphera\Core\TestAsset;
 
 use Aphera\Core;
 
-class TestConfiguration extends Core\ApheraConfiguration
+class StubConfiguration extends Core\ApheraConfiguration
 {
     private $environmentVariables = array();
     

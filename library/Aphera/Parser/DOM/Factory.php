@@ -73,7 +73,7 @@ class Factory implements Core\Factory
         if($parent) {
             $parent->appendChild($element);
         }
-        return $el;
+        return $element;
     }
     
     public function newFeed() {

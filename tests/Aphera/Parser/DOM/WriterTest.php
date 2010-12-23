@@ -28,7 +28,18 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         $this->stream = fopen('php://memory', 'w');
     }
     
-    public function testWriteTo_Scenario_Assertions() {
+    public function testWriteTo_EmptyEntry_WritesToStream() {
+        $entry = $this->factory->newEntry();
+        
+        $this->writer->writeTo($entry, $this->stream);
+        
+        \rewind($this->stream);
+        $xml = \stream_get_contents($this->stream);
+        $this->assertContains('<?xml version="1.0"?>', $xml);
+        $this->assertContains('<entry xmlns="http://www.w3.org/2005/Atom"/>', $xml);
+    }
+    
+    public function testWriteTo_NestedData_WritesToStream() {
         $entry = $this->factory->newEntry();
         $entry->setTitle('testtitle');
         

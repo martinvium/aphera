@@ -22,6 +22,7 @@ final class Constants
     
     const FEED = "feed";
     const ENTRY = "entry";
+    const SOURCE = "source";
     const CONTENT = "content";
     const SUMMARY = "summary";
     const ID = "id";

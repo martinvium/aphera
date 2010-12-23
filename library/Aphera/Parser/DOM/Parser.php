@@ -11,8 +11,8 @@ class Parser implements Core\Parser
      */
     protected $factory;
     
-    public function __construct(Core\Factory $factory) {
-        $this->factory = $factory;
+    public function __construct(Core\Aphera $aphera) {
+        $this->factory = $aphera->getFactory();
     }
     
     /**

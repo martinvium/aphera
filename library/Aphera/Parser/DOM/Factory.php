@@ -97,7 +97,7 @@ class Factory implements Core\Factory
     }
     
     public function newParser() {
-        return new Parser($this);
+        return new Parser($this->aphera);
     }
     
     public function newPublished() {

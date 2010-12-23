@@ -25,9 +25,11 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         $this->factory = $aphera->getFactory();
         $doc = $this->factory->newDocument();
         $root = $this->factory->newElement('test');
-        $doc->appendChild($doc);
+        $doc->appendChild($root);
         
         $this->source = $this->factory->newSource($root);
+        $this->source->setTitle('testtitle');
+        $this->source->setId('testid');
         $this->source->addLink('testnorel');
         $this->source->addLink('testnotitle', 'testrel');
         $this->source->addLink('testall', 'testrel2', 'testtitle');

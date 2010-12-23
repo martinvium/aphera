@@ -6,7 +6,7 @@ use Aphera\Parser\DOM;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
-class ContentTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var DOM\Factory

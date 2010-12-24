@@ -5,6 +5,8 @@ final class Aphera
 {
     private $factory;
     
+    private $parser;
+    
     private $config;
     
     public function __construct(Configuration $config = null) {
@@ -16,7 +18,7 @@ final class Aphera
     }
     
     /**
-     * @return Core\Factory
+     * @return Factory
      */
     public function getFactory() {
         if(! $this->factory) {
@@ -27,14 +29,25 @@ final class Aphera
     }
     
     /**
-     * @return Core\Factory
+     * @return Factory
      */
     protected function newFactory() {
         return $this->config->newFactoryInstance($this);
     }
     
     /**
-     * @return Core\Configuration 
+     * @return Parser
+     */
+    public function getParser() {
+        if(! $this->parser) {
+            $this->parser = $this->getFactory()->newParser();
+        }
+        
+        return $this->parser;
+    }
+    
+    /**
+     * @return Configuration 
      */
     public function getConfiguration() {
         return $this->config;

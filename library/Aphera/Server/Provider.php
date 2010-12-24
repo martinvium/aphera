@@ -1,7 +1,12 @@
 <?php
 namespace Aphera\Server;
 
-class Provider
+interface Provider
 {
+    public function getAphera();
     
+    /**
+     * @return ResponseContext
+     */
+    public function process(RequestContext $request);
 }

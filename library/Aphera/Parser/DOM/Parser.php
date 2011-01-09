@@ -22,7 +22,6 @@ class Parser implements Core\Parser
     public function parseStream($handle) {
         $xml = \stream_get_contents($handle);
         $doc = $this->parseString($xml);
-        \fclose($handle);
         return $doc;
     }
     

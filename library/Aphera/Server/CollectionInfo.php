@@ -8,6 +8,4 @@ interface CollectionInfo
     public function getTitle(RequestContext $request);
     
     public function getAccepts(RequestContext $request);
-    
-    public function getCategoriesInfo(RequestContext $request);
 }

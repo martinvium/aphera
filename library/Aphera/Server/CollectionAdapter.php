@@ -1,6 +1,8 @@
 <?php
 namespace Aphera\Server;
 
+use Aphera\Server\RequestContext;
+
 interface CollectionAdapter
 {
     /**
@@ -29,7 +31,7 @@ interface CollectionAdapter
      * 
      * @return ResponseContext
      */
-    public function updateEntry(RequestContext $request);
+    public function putEntry(RequestContext $request);
     
     /**
      * Deletes an existing entry. Called when a DELETE request is sent to the entries edit URI
@@ -51,16 +53,4 @@ interface CollectionAdapter
      * @return ResponseContext
      */
     public function headEntry(RequestContext $request);
-    
-    /**
-     * Returns a Categories document. Called when a GET request is sent to the Category Documents URI as configured by the Provider Target Resolver.
-     * 
-     * @return array
-     */
-    public function getCategories(RequestContext $request);
-    
-    /**
-     * Called when a request does not match any of the other methods. This allows a CollectionAdapter to flexibly support extensions
-     */
-    public function extensionRequest(RequestContext $request);
 }

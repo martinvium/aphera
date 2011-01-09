@@ -5,7 +5,7 @@ use Aphera\Core\Protocol\Response;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
-class EntityResponseContextTest extends \PHPUnit_Framework_TestCase
+class BasicResponseContextTest extends \PHPUnit_Framework_TestCase
 {
     protected $entry;
     
@@ -18,7 +18,7 @@ class EntityResponseContextTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         
         $this->entry = $this->getMock('Aphera\\Model\\Entry');
-        $this->response = new EntityResponseContext($this->entry);
+        $this->response = new BasicResponseContext($this->entry);
     }
     
     public function testWriteTo_ViaSetHeader_ReturnsAllow() {

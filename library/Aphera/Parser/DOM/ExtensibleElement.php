@@ -11,8 +11,12 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
      */
     protected $factory;
     
-    public function __construct ($name, $value, $uri, Core\Factory $factory) {
+    public function __construct ($name, $value, $uri, Factory $factory) {
         parent::__construct($name, $value, $uri);
+        $this->factory = $factory;
+    }
+
+    public function setFactory(Factory $factory) {
         $this->factory = $factory;
     }
     

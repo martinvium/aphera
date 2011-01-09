@@ -5,17 +5,24 @@ use Aphera\Model;
 
 class Document extends \DOMDocument implements Model\Document
 {
-    public function __construct() {
-        parent::__construct(); // has to be called!
+    protected $factory;
+
+    public function __construct(Factory $factory, $version, $encoding) {
+        parent::__construct($version, $encoding); // has to be called!
+        $this->factory = $factory;
     }
     
     public function getRootEntry() {
         $this->registerNodeClass('DOMElement', '\\Aphera\\Parser\\DOM\\Entry');
-        return $this->documentElement;
+        $entry = $this->documentElement;
+        $entry->setFactory($this->factory);
+        return $entry;
     }
     
     public function getRootFeed() {
         $this->registerNodeClass('DOMElement', '\\Aphera\\Parser\\DOM\\Feed');
-        return $this->documentElement;
+        $feed = $this->documentElement;
+        $feed->setFactory($this->factory);
+        return $feed;
     }
 }

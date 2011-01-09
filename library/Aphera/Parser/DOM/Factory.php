@@ -50,7 +50,7 @@ class Factory implements Core\Factory
     }
     
     public function newDocument() {
-        return new Document($this->version, $this->encoding);
+        return new Document($this->getAphera()->getFactory(), $this->version, $this->encoding);
     }
     
     /**

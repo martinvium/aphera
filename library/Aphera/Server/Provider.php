@@ -9,4 +9,8 @@ interface Provider
      * @return ResponseContext
      */
     public function process(RequestContext $request);
+
+    public function setTargetResolver();
+
+    public function getTargetResolver();
 }

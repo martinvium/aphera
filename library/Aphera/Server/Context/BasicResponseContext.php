@@ -4,7 +4,7 @@ namespace Aphera\Server\Context;
 use Aphera\Model\ExtensibleElement;
 use Aphera\Core\Writer;
 
-class EntityResponseContext extends AbstractResponseContext
+class BasicResponseContext extends AbstractResponseContext
 {
     /**
      * @var ExtensibleElement

@@ -32,4 +32,7 @@ final class Constants
     const REL = "rel";
     const TYPE = "type";
     const SRC = "src";
+    const UPDATED = "updated";
+
+    const DATE_FORMAT = 'c';
 }

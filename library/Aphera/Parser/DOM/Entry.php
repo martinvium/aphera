@@ -3,6 +3,7 @@ namespace Aphera\Parser\DOM;
 
 use Aphera\Model;
 use Aphera\Core;
+use Aphera\Core\Constants;
 
 class Entry extends ExtensibleElement implements Model\Entry
 {
@@ -12,8 +13,8 @@ class Entry extends ExtensibleElement implements Model\Entry
     protected $summary;
     protected $title;
 
-    public function __construct(Core\Factory $factory) {
-        parent::__construct(Core\Constants::ENTRY, null, Core\Constants::ATOM_NS, $factory);
+    public function __construct(Factory $factory) {
+        parent::__construct(Constants::ENTRY, null, Constants::ATOM_NS, $factory);
     }
 
     public function addLink($href, $rel = null, $title = null) {
@@ -29,7 +30,7 @@ class Entry extends ExtensibleElement implements Model\Entry
 
     public function getContentElement() {
         $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
-        $element = $this->getFirstChildByTagName(Core\Constants::CONTENT, Core\Constants::ATOM_NS);
+        $element = $this->getFirstChildByTagName(Constants::CONTENT, Constants::ATOM_NS);
         return $element;
     }
 
@@ -39,16 +40,16 @@ class Entry extends ExtensibleElement implements Model\Entry
 
     public function getIdElement() {
         $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
-        $element = $this->getFirstChildByTagName(Core\Constants::ID, Core\Constants::ATOM_NS);
+        $element = $this->getFirstChildByTagName(Constants::ID, Constants::ATOM_NS);
         return $element;
     }
 
     public function getLinks($rel = null) {
         $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Link');
-        $elements = $this->getChildrenWithName(Core\Constants::LINK);
+        $elements = $this->getChildrenWithName(Constants::LINK);
         
         if($rel !== null) {
-            $elements = Helper::getElementsWithAttributeValue($elements, Core\Constants::REL, $rel, Core\Constants::ATOM_NS);
+            $elements = Helper::getElementsWithAttributeValue($elements, Constants::REL, $rel, Constants::ATOM_NS);
         }
         
         return $elements;
@@ -60,7 +61,7 @@ class Entry extends ExtensibleElement implements Model\Entry
 
     public function getSummaryElement() {
         $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
-        $element = $this->getFirstChildByTagName(Core\Constants::SUMMARY, Core\Constants::ATOM_NS);
+        $element = $this->getFirstChildByTagName(Constants::SUMMARY, Constants::ATOM_NS);
         return $element;
     }
 
@@ -70,7 +71,7 @@ class Entry extends ExtensibleElement implements Model\Entry
 
     public function getTitleElement() {
         $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
-        $element = $this->getFirstChildByTagName(Core\Constants::TITLE, Core\Constants::ATOM_NS);
+        $element = $this->getFirstChildByTagName(Constants::TITLE, Constants::ATOM_NS);
         return $element;
     }
 
@@ -97,6 +98,22 @@ class Entry extends ExtensibleElement implements Model\Entry
     public function setTitle($value) {
         $element = $this->factory->newTitle();
         $element->nodeValue = (string)$value;
+        $this->appendChild($element);
+    }
+
+    public function getUpdatedElement() {
+        $this->ownerDocument->registerNodeClass('\\DOMElement', '\\Aphera\\Parser\\DOM\\Element');
+        $element = $this->getFirstChildByTagName(Constants::UPDATED, Constants::ATOM_NS);
+        return $element;
+    }
+
+    public function getUpdated() {
+        return new \DateTime($this->getUpdatedElement()->getValue());
+    }
+
+    public function setUpdated(\DateTime $datetime) {
+        $element = $this->factory->newUpdated();
+        $element->nodeValue = $datetime->format(Constants::DATE_FORMAT);
         $this->appendChild($element);
     }
 }

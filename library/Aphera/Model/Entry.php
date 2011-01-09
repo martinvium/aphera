@@ -32,4 +32,8 @@ interface Entry extends ExtensibleElement
     public function getTitle();
     
     public function setTitle($value);
+
+    public function getUpdated();
+
+    public function setUpdated(\DateTime $datetime);
 }

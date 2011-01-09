@@ -1,24 +1,11 @@
 <?php
 namespace Aphera\Server\Context;
 
-class DefaultRequestContext extends AbstractRequestContext
+use Aphera\Server\Provider;
+
+class DefaultRequestContext extends StreamRequestContext
 {
-    public function getTargetType() {
-        throw new \Exception('not implemented');
-    }
-    
-    public function getHeader($name)
-    {
-        return $_SERVER[$name];
-    }
-    
-    public function getHeaders($name)
-    {
-        return array($_SERVER[$name]);
-    }
-    
-    public function getInputStream()
-    {
-        return fopen('php://input', 'r');
+    public function __construct(Provider $provider, $method, $uri, $baseUri) {
+        parent::__construct(\fopen('php://input', 'r'), $provider, $method, $uri, $baseUri);
     }
 }

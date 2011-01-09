@@ -6,6 +6,7 @@ use Aphera\Core\Parser;
 use Aphera\Model\Document;
 use Aphera\Server\RequestContext;
 use Aphera\Server\Provider;
+use Aphera\Core\Protocol\Resolver;
 
 abstract class AbstractRequestContext extends AbstractRequest implements RequestContext
 {
@@ -19,16 +20,34 @@ abstract class AbstractRequestContext extends AbstractRequest implements Request
     protected $uri = '';
     
     protected $baseUri = '';
+
+    /**
+     * @var Resolver
+     */
+    protected $targetResolver;
     
     public function __construct(Provider $provider, $method, $uri, $baseUri) {
         $this->provider = $provider;
+        $this->targetResolver = $provider->getTargetResolver();
         $this->method = (string)$method;
         $this->uri = (string)$uri;
         $this->baseUri = (string)$baseUri;
     }
+
+    public function getProvider() {
+        return $this->provider;
+    }
+
+    public function getTargetType() {
+        return $this->targetResolver->getTargetType();
+    }
+
+    public function getTarget() {
+        return $this->targetResolver->resolve($this);
+    }
     
     public function getAphera() {
-        $this->provider->getAphera();
+        return $this->provider->getAphera();
     }
     
     /**
@@ -53,5 +72,10 @@ abstract class AbstractRequestContext extends AbstractRequest implements Request
     
     public function getBaseUri() {
         return $this->baseUri;
+    }
+
+    public function getTargetPath() {
+        $path = $this->getContextPath();
+        return substr($this->getUri(), length($path));
     }
 }

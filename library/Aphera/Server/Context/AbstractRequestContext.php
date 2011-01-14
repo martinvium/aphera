@@ -1,11 +1,14 @@
 <?php
 namespace Aphera\Server\Context;
 
-use Aphera\Core\Protocol\AbstractRequest;
-use Aphera\Core\Parser;
-use Aphera\Model\Document;
 use Aphera\Server\RequestContext;
 use Aphera\Server\Provider;
+use Aphera\Server\Route;
+
+use Aphera\Model\Document;
+
+use Aphera\Core\Parser;
+use Aphera\Core\Protocol\AbstractRequest;
 use Aphera\Core\Protocol\Resolver;
 
 abstract class AbstractRequestContext extends AbstractRequest implements RequestContext
@@ -28,7 +31,6 @@ abstract class AbstractRequestContext extends AbstractRequest implements Request
     
     public function __construct(Provider $provider, $method, $uri, $baseUri) {
         $this->provider = $provider;
-        $this->targetResolver = $provider->getTargetResolver();
         $this->method = (string)$method;
         $this->uri = (string)$uri;
         $this->baseUri = (string)$baseUri;
@@ -38,12 +40,12 @@ abstract class AbstractRequestContext extends AbstractRequest implements Request
         return $this->provider;
     }
 
-    public function getTargetType() {
-        return $this->targetResolver->getTargetType();
-    }
-
+    /**
+     * @todo cache resolving?
+     * @return Route
+     */
     public function getTarget() {
-        return $this->targetResolver->resolve($this);
+        return $this->provider->getTargetResolver()->resolve($this);
     }
     
     public function getAphera() {
@@ -76,6 +78,6 @@ abstract class AbstractRequestContext extends AbstractRequest implements Request
 
     public function getTargetPath() {
         $path = $this->getContextPath();
-        return substr($this->getUri(), length($path));
+        return substr($this->getUri(), \strlen($path));
     }
 }

@@ -25,8 +25,6 @@ interface RequestContext extends Request
     
     public function getInputStream();
     
-    public function getTargetType();
-    
     /**
      * @return Target
      */

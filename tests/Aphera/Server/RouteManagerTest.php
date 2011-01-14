@@ -51,12 +51,17 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($target);
     }
 
-    public function testAddSimpleRoute_MixedParams_ReturnsEntryAction() {
+    public function testAddSimpleRoute_MixedParams_ResolveReturnsEntryAction() {
         $this->manager->addSimpleRoute('test', self::PATTERN_ENTRY, Target::TYPE_CATEGORIES);
         $target = $this->manager->resolve($this->makeRequest('/hello/there'));
         $this->assertInstanceOf('\\Aphera\\Server\\RouteTarget', $target);
         $this->assertEquals(Target::TYPE_CATEGORIES, $target->getType());
         $this->assertEquals(array('feed' => 'hello', 'entry' => 'there'), $target->getParameters());
+    }
+
+    public function testAddSimpleRoute_MixedParams_ReturnsManager() {
+        $actual = $this->manager->addSimpleRoute('test', self::PATTERN_ENTRY, Target::TYPE_CATEGORIES);
+        $this->assertInstanceOf('\\Aphera\\Server\\RouteManager', $actual);
     }
 
     protected function makeRequest($uri) {
@@ -68,8 +73,8 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     protected function changeManagerAddAllRoutes() {
-        $this->manager->addRoute(new Route('service', self::PATTERN_SERVICE, Target::TYPE_SERVICE));
-        $this->manager->addRoute(new Route('feed', self::PATTERN_FEED, Target::TYPE_COLLECTION));
-        $this->manager->addRoute(new Route('entry', self::PATTERN_ENTRY, Target::TYPE_ENTRY));
+        $this->manager->addRoute(new Route('service', self::PATTERN_SERVICE, Target::TYPE_SERVICE))
+                      ->addRoute(new Route('feed', self::PATTERN_FEED, Target::TYPE_COLLECTION))
+                      ->addRoute(new Route('entry', self::PATTERN_ENTRY, Target::TYPE_ENTRY));
     }
 }

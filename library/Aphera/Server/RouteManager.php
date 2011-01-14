@@ -44,12 +44,24 @@ class RouteManager implements Resolver
         return null;
     }
 
+    /**
+     * @param string $name
+     * @param string $pattern
+     * @param string $targetType
+     * @return RouteManager
+     */
     public function addSimpleRoute($name, $pattern, $targetType) {
         $this->addRoute(new Route($name, $pattern, $targetType));
+        return $this;
     }
 
+    /**
+     * @param Route $route
+     * @return RouteManager
+     */
     public function addRoute(Route $route) {
         $this->routes[$route->getName()] = $route;
+        return $this;
     }
 
     /**

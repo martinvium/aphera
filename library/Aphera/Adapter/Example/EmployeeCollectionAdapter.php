@@ -24,6 +24,10 @@ class EmployeeCollectionAdapter extends AbstractEntityCollectionAdapter
 {
     const ID_PREFIX = 'prefix';
 
+    public static function getClass() {
+        return __CLASS__;
+    }
+
     public function getAuthor(RequestContext $request) {
         return "Acme Industries";
     }

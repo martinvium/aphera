@@ -21,6 +21,13 @@ use Aphera\Server\RequestContext;
 interface CollectionAdapter
 {
     /**
+     * Shorthand for referencing the class in configurations etc.
+     * 
+     * @return string
+     */
+    public static function getClass();
+
+    /**
      * Returns the Collection's Atom Feed. Called when a GET request is sent to the collection's URI
      * 
      * @return ResponseContext

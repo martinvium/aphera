@@ -67,6 +67,11 @@ class EmployeeCollectionAdapterTest extends \PHPUnit_Framework_TestCase
         \fclose($this->entryStream);
     }
 
+    public function testGetClass_Scenario_Assertions() {
+        $className = EmployeeCollectionAdapter::getClass();
+        $this->assertEquals('Aphera\\Adapter\\Example\\EmployeeCollectionAdapter', $className);
+    }
+
     public function testPostEntry_EmptyAdapter_X() {
         $request = $this->makeRequest($this->entryStream);
         $response = $this->adapter->postEntry($request);

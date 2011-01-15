@@ -68,9 +68,12 @@ class Route
     public function parse($uri) {
         $parameters = array();
         $uriParts = $this->split($uri);
-
         $patternParts = $this->split($this->pattern);
         foreach($patternParts as $key => $patternPart) {
+            if(substr($patternPart, 0, 1) != ':') {
+                continue;
+            }
+
             $paramName = ltrim($patternPart, ':');
             if(isset($uriParts[$key])) {
                 $parameters[$paramName] = $uriParts[$key];

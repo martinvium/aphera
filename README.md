@@ -1,4 +1,4 @@
-# Aphera - PHP library for publishing and consuming AtomPub based REST services
+# Aphera - PHP library for publishing and consuming AtomPub webservices
 
 ## What is it?
 

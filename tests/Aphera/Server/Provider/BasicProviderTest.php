@@ -3,6 +3,7 @@ namespace Aphera\Server\Provider;
 
 use Aphera\Server\Provider\BasicProvider;
 use Aphera\Server\Context\DefaultRequestContext;
+use Aphera\Core\Aphera;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
@@ -14,38 +15,24 @@ class BasicProviderTest extends \PHPUnit_Framework_TestCase
      * @var BasicProvider
      */
     protected $provider;
+
+    protected $manager;
     
     public function setUp() {
         parent::setUp();
         
         $this->provider = new BasicProvider();
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetCollectionAdapter_EmptyUri_ThrowsInvalidArgumentException() {
-        $adapter = $this->getMockForAbstractClass('\\Aphera\\Server\\Adapter\\AbstractEntityCollectionAdapter');
-        $this->provider->registerCollectionAdapter('hello', get_class($adapter));
-
-        $returnedAdapter = $this->provider->getCollectionAdapter($this->makeRequest('POST', ''));
-        $this->assertEquals(get_class($adapter), $returnedAdapter);
-    }
-
-    public function testGetCollectionAdapter_HelloFeedUri_ReturnsHelloAdapter() {
-        $adapter = $this->getMockForAbstractClass('\\Aphera\\Server\\Adapter\\AbstractEntityCollectionAdapter');
-        $this->provider->registerCollectionAdapter('hello', get_class($adapter));
-
-        $returnedAdapter = $this->provider->getCollectionAdapter($this->makeRequest('POST', self::BASE_URI . '/hello'));
-        $this->assertEquals(get_class($adapter), get_class($returnedAdapter));
+//        $this->provider->init(new Aphera());
+        $this->manager = $this->getMock('\\Aphera\\Server\\WorkspaceManager');
+        $this->provider->setWorkspaceManager($this->manager);
     }
 
     public function testProcess_HelloFeedUri_ReturnsHelloAdapter() {
-        $this->markTestIncomplete('implement workspace manager so we can mock getCollectionAdapter');
-
         $request = $this->makeRequest('POST', self::BASE_URI . '/hello');
-        $adapter = $this->getMockForAbstractClass('\\Aphera\\Server\\Adapter\\AbstractEntityCollectionAdapter');
-        $this->provider->registerCollectionAdapter('hello', get_class($adapter));
+        $adapter = $this->getMock('\\Aphera\\Server\\CollectionAdapter');
+        $this->manager->expects($this->any())
+                      ->method('getCollectionAdapter')
+                      ->will($this->returnValue($adapter));
 
         $adapter->expects($this->once())
                 ->method('postEntry')

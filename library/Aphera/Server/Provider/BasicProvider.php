@@ -4,14 +4,14 @@ namespace Aphera\Server\Provider;
 use Aphera\Server\RequestContext;
 use Aphera\Server\RouteManager;
 use Aphera\Server\CollectionAdapter;
+use Aphera\Server\WorkspaceManager;
 
 use Aphera\Core\Protocol\Target;
 use Aphera\Core\Protocol\Resolver;
 
-class BasicProvider extends AbstractWorkspaceProvider
+class BasicProvider extends AbstractProvider
 {
-    protected $adapterMap = array();
-    protected $registeredAdapterClasses = array();
+    protected $workspaceManager;
 
     public function __construct($base = '/') {
         parent::__construct();
@@ -22,30 +22,15 @@ class BasicProvider extends AbstractWorkspaceProvider
                            ->addSimpleRoute('entry', $base . ':feed/:entry/', Target::TYPE_ENTRY);
 
         $this->setTargetResolver($this->routeManager);
+
+        $this->workspaceManager = new BasicWorkspaceManager();
     }
 
-    public function registerCollectionAdapter($feedId, $className) {
-        $this->registeredAdapterClasses[$feedId] = $className;
+    public function getWorkspaceManager(RequestContext $request = null) {
+        return $this->workspaceManager;
     }
 
-    /**
-     * @todo maybe we should just return null, instead of throwing an exception?
-     * @param RequestContext $request
-     * @return CollectionAdapter
-     */
-    public function getCollectionAdapter(RequestContext $request) {
-        $feedId = $request->getTarget()->getParameter('feed');
-        
-        if(isset($this->adapterMap[$feedId])) {
-            return $this->adapterMap[$feedId];
-        }
-
-        if(! isset($this->registeredAdapterClasses[$feedId])) {
-            throw new \InvalidArgumentException('no adapter registered with id: ' . var_export($feedId, true));
-        }
-
-        $className = $this->registeredAdapterClasses[$feedId];
-        $adapter = new $className($this->aphera);
-        return $adapter;
+    public function setWorkspaceManager(WorkspaceManager $manager) {
+        $this->workspaceManager = $manager;
     }
 }

@@ -14,28 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Aphera\Server\Adapter\TestAsset;
+namespace Aphera\Server\Context;
 
-use Aphera\Model\ExtensibleElement;
-use Aphera\Server\RequestContext;
-use Aphera\Server\Adapter\AbstractEntityCollectionAdapter;
-
-
-class StubEntityCollectionAdapter extends AbstractEntityCollectionAdapter
+class ResponseContextException extends \Exception
 {
-    public $testEntryByResourceName;
-    
-    public function getId() {
-        throw new Exception('not implemented');
-    }
-    
-    public function getAuthor() {
-        throw new Exception('not implemented');
-    }
-    
-    protected function getEntryByResourceName($name) {
-        return $this->testEntryByResourceName;
+    public function  __construct($code, $previous) {
+        parent::__construct($previous->getMessage(), $code, $previous);
     }
 
-    
+    /**
+     * @return EmptyResponseContext
+     */
+    public function getResponseContext() {
+        $response = new EmptyResponseContext();
+        $response->setStatus($this->getCode());
+        $response->setStatusText($this->getMessage());
+        return $response;
+    }
 }

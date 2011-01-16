@@ -21,20 +21,25 @@ use Aphera\Server\RequestContext;
 use Aphera\Server\Context\EmptyResponseContext;
 use Aphera\Server\ProviderHelper;
 use Aphera\Model\Entry;
+use Aphera\Server\Context\ResponseContextException;
 
 abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
 {    
     public function postEntry(RequestContext $request) {
-        $entry = $this->getEntryFromRequest($request);
-        if(! $entry) {
-            return new EmptyResponseContext(400);
-        }
-        
-        $entry->setUpdated(new \DateTime());
-        $entity = $this->postEntryWithCollectionProvider($entry, $request);
+        try {
+            $entry = $this->getEntryFromRequest($request);
+            if(! $entry) {
+                return new EmptyResponseContext(400);
+            }
 
-        $entry->setId($this->getEntityId($entity));
-        return $this->buildCreateEntryResponse($entry);
+            $entry->setUpdated(new \DateTime());
+            $entity = $this->postEntryWithCollectionProvider($entry, $request);
+
+            $entry->setId($this->getEntityId($entity));
+            return $this->buildCreateEntryResponse($entry);
+        } catch(ResponseContextException $e) {
+            return $this->createErrorResponse($e);
+        }
     }
     
     public function putEntry(RequestContext $request) {

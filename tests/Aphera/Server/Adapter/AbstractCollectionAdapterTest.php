@@ -22,9 +22,6 @@ use Aphera\Server\Context\DefaultRequestContext;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
-/**
- * @group disable
- */
 class AbstractCollectionAdapterTest extends \PHPUnit_Framework_TestCase
 {
     const HREF = 'myfeed';

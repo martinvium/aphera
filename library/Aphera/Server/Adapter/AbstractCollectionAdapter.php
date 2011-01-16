@@ -16,13 +16,17 @@
  */
 namespace Aphera\Server\Adapter;
 
-use Aphera\Model\Entry;
 use Aphera\Server\RequestContext;
 use Aphera\Server\CollectionAdapter;
 use Aphera\Server\CollectionInfo;
 use Aphera\Server\ProviderHelper;
-use Aphera\Server\Context\BasicResponseContext;
 use Aphera\Server\ResponseContext;
+use Aphera\Server\Context\BasicResponseContext;
+use Aphera\Server\Context\ResponseContextException;
+
+use Aphera\Model\Entry;
+
+use Aphera\Core\Protocol\ParseException;
 
 abstract class AbstractCollectionAdapter implements CollectionAdapter, CollectionInfo
 {
@@ -87,7 +91,14 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
     protected function getEntryFromRequest(RequestContext $request) {
         $aphera = $request->getAphera();
         $parser = $aphera->getParser();
-        $doc = $request->getDocument($parser);
+
+        $doc = null;
+        try {
+            $doc = $request->getDocument($parser);
+        } catch(ParseException $e) {
+            throw new ResponseContextException(400, $e);
+        }
+        
         return $doc->getRootEntry();
     }
     
@@ -99,5 +110,13 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
     protected function getResourceName(RequestContext $request) {
         // picks out the last part of the target path??
         // https://github.com/apache/abdera/blob/trunk/server/src/main/java/org/apache/abdera/protocol/server/impl/AbstractCollectionAdapter.java
+    }
+
+    /**
+     * @param ResponseContextException $e
+     * @return ResponseContext
+     */
+    public function createErrorResponse($e) {
+        return $e->getResponseContext();
     }
 }

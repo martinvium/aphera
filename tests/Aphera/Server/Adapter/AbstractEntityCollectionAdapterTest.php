@@ -19,15 +19,16 @@ namespace Aphera\Server\Adapter;
 use Aphera\Server\ResponseContext;
 use Aphera\Core\Aphera;
 use Aphera\Server\Context\DefaultRequestContext;
+use Aphera\Server\Context\StreamRequestContext;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
 /**
- * @group disable
+ * @group disable2
  */
 class AbstractEntityCollectionAdapterTest extends \PHPUnit_Framework_TestCase
 {
-    const HREF = 'myfeed';
+    const BASE_URI = '';
     
     /**
      * @var AbstractCollectionAdapter
@@ -38,17 +39,31 @@ class AbstractEntityCollectionAdapterTest extends \PHPUnit_Framework_TestCase
      * @var Aphera\Server\RequestContext
      */
     protected $request;
-    
+
+    protected $stream;
+
+    protected $provider;
+
+    protected $inputStream;
+
     public function setUp() {
         parent::setUp();
         
-        $this->request = new DefaultRequestContext($this->getMock('\\Aphera\\Server\\Provider'), 'GET', '', '');
+        $this->provider = new \Aphera\Server\Provider\BasicProvider();
+        $this->provider->init(new Aphera());
         
-        $this->adapter = new TestAsset\StubEntityCollectionAdapter();
-        $this->adapter->setHref(self::HREF);
+        $this->adapter = $this->getMockForAbstractClass('\\Aphera\\Server\\Adapter\\AbstractEntityCollectionAdapter');
+
+        $this->stream = \fopen('php://memory', 'w');
+        $this->inputStream = \fopen('php://memory', 'r');
     }
     
-    public function testHeadEntry_Scenario_Assertions() {
-        $response = $this->adapter->headEntry($this->request);
+    public function testPostEntry_EmptyRequestBody_Returns400Response() {
+        $response = $this->adapter->postEntry($this->makeRequest('POST', self::BASE_URI));
+        $this->assertEquals(400, $response->getStatus());
+    }
+
+    protected function makeRequest($method, $uri) {
+        return new StreamRequestContext($this->stream, $this->provider, $method, $uri, self::BASE_URI);
     }
 }

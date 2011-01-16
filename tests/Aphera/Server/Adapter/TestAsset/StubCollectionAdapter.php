@@ -21,7 +21,7 @@ use Aphera\Server\RequestContext;
 
 class StubCollectionAdapter extends AbstractCollectionAdapter
 {
-    public function getId() {
+    public function getId(RequestContext $request) {
         throw new Exception('not implemented');
     }
     
@@ -35,5 +35,9 @@ class StubCollectionAdapter extends AbstractCollectionAdapter
     
     public function getTitle(RequestContext $request) {
         throw new Exception('not implemented');
+    }
+
+    public static function getClass() {
+        return __CLASS__;
     }
 }

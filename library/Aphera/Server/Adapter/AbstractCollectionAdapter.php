@@ -44,6 +44,7 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
     protected function buildCreateEntryResponse(Entry $entry) {
         $response = new BasicResponseContext($entry);
         $response->setStatus(201);
+        $response->setStatusText('Created');
         return $response;
         
     }

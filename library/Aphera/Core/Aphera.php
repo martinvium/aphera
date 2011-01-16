@@ -23,6 +23,8 @@ final class Aphera
     private $parser;
     
     private $config;
+
+    private $writer;
     
     public function __construct(Configuration $config = null) {
         if(! $config) {
@@ -59,6 +61,17 @@ final class Aphera
         }
         
         return $this->parser;
+    }
+
+    /**
+     * @return Writer
+     */
+    public function getWriter() {
+        if(! $this->writer) {
+            $this->writer = $this->getFactory()->newWriter();
+        }
+
+        return $this->writer;
     }
     
     /**

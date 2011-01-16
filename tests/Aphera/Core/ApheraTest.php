@@ -91,6 +91,35 @@ class ApheraTest extends \PHPUnit_Framework_TestCase
         $this->aphera->getParser();
     }
 
+    public function testGetWriter_ReturnsWriter() {
+        $factory = $this->getMock('\\Aphera\\Core\\Factory');
+        $factory->expects($this->any())
+                ->method('newWriter')
+                ->will($this->returnValue('myWriter'));
+
+        $this->config->expects($this->once())
+                     ->method('newFactoryInstance')
+                     ->will($this->returnValue($factory));
+
+        $parser = $this->aphera->getWriter();
+        $this->assertEquals('myWriter', $parser);
+    }
+
+    public function testGetWriter_CallTwice_CallsNewWriterOnce() {
+
+        $factory = $this->getMock('\\Aphera\\Core\\Factory');
+        $factory->expects($this->once())
+                ->method('newWriter')
+                ->will($this->returnValue('myWriter'));
+
+        $this->config->expects($this->once())
+                     ->method('newFactoryInstance')
+                     ->will($this->returnValue($factory));
+
+        $this->aphera->getWriter();
+        $this->aphera->getWriter();
+    }
+
     public function testGetConfiguration_Scenario_ReturnsConfiguration() {
         $config = $this->aphera->getConfiguration();
         $this->assertSame($this->config, $config);

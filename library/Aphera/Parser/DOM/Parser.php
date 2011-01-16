@@ -17,6 +17,9 @@
 namespace Aphera\Parser\DOM;
 
 use Aphera\Core;
+use Aphera\Core\Aphera;
+use Aphera\Core\Protocol\ParseException;
+
 use Aphera\Model;
 
 class Parser implements Core\Parser
@@ -26,7 +29,7 @@ class Parser implements Core\Parser
      */
     protected $factory;
     
-    public function __construct(Core\Aphera $aphera) {
+    public function __construct(Aphera $aphera) {
         $this->factory = $aphera->getFactory();
     }
     
@@ -46,7 +49,14 @@ class Parser implements Core\Parser
      */
     public function parseString($xml) {
         $doc = $this->factory->newDocument();
-        $doc->loadXML($xml);
+
+        if(! $xml) {
+            throw new ParseException('Failed to parse empty xml string');
+        }
+
+        if(! $doc->loadXML($xml, \LIBXML_NOERROR | \LIBXML_NOWARNING)) {
+            throw new ParseException('Failed to parse xml string');
+        }
         return $doc;
     }
 }

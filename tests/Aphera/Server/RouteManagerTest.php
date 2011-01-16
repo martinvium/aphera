@@ -79,6 +79,14 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\\Aphera\\Server\\RouteManager', $actual);
     }
 
+    public function testResolve_EmployeesFeed_ReturnsCollectionAction() {
+        $this->changeManagerAddAllRoutes();
+        $target = $this->manager->resolve($this->makeRequest('employees'));
+        $this->assertInstanceOf('\\Aphera\\Server\\RouteTarget', $target);
+        $this->assertEquals(Target::TYPE_COLLECTION, $target->getType());
+        $this->assertEquals(array('feed' => 'employees'), $target->getParameters());
+    }
+
     protected function makeRequest($uri) {
         $request = $this->getMock('\\Aphera\\Server\\RequestContext');
         $request->expects($this->any())

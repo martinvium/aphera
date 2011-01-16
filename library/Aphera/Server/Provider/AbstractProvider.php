@@ -94,6 +94,9 @@ abstract class AbstractProvider implements Provider
         return $this->aphera;
     }
 
+    /**
+     * @return Resolver
+     */
     public function getTargetResolver() {
         return $this->targetResolver;
     }

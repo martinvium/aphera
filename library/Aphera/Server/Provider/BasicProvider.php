@@ -28,19 +28,23 @@ class BasicProvider extends AbstractProvider
 {
     protected $workspaceManager;
 
-    public function __construct($base = '/') {
+    public function __construct() {
         parent::__construct();
 
         $this->routeManager = new RouteManager();
-        $this->routeManager->addSimpleRoute('service', $base, Target::TYPE_SERVICE)
-                           ->addSimpleRoute('feed', $base . ':feed/', Target::TYPE_COLLECTION)
-                           ->addSimpleRoute('entry', $base . ':feed/:entry/', Target::TYPE_ENTRY);
+        $this->routeManager->addSimpleRoute('service', '/', Target::TYPE_SERVICE)
+                           ->addSimpleRoute('feed', '/:feed/', Target::TYPE_COLLECTION)
+                           ->addSimpleRoute('entry', '/:feed/:entry/', Target::TYPE_ENTRY);
 
         $this->setTargetResolver($this->routeManager);
 
         $this->workspaceManager = new BasicWorkspaceManager();
     }
 
+    /**
+     * @param RequestContext $request
+     * @return WorkspaceManager
+     */
     public function getWorkspaceManager(RequestContext $request = null) {
         return $this->workspaceManager;
     }

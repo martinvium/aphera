@@ -51,9 +51,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         
         $doc = $this->parser->parseStream($fp);
         
-        $this->assertType('\\Aphera\\Model\\Document', $doc);
+        $this->assertInstanceOf('\\Aphera\\Model\\Document', $doc);
         $feed = $doc->getRootFeed();
-        $this->assertType('\\Aphera\\Model\\Feed', $feed);
+        $this->assertInstanceOf('\\Aphera\\Model\\Feed', $feed);
         $entries = $feed->getEntries();
         $this->assertEquals('urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a', $entries[0]->getId());
     }
@@ -64,9 +64,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         
         $doc = $this->parser->parseStream($fp);
         
-        $this->assertType('\\Aphera\\Model\\Document', $doc);
+        $this->assertInstanceOf('\\Aphera\\Model\\Document', $doc);
         $entry = $doc->getRootEntry();
-        $this->assertType('\\Aphera\\Model\\Entry', $entry);
+        $this->assertInstanceOf('\\Aphera\\Model\\Entry', $entry);
         $this->assertEquals('urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a', $entry->getId());
     }
     
@@ -75,9 +75,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         
         $doc = $this->parser->parseString(\file_get_contents($filename));
         
-        $this->assertType('\\Aphera\\Model\\Document', $doc);
+        $this->assertInstanceOf('\\Aphera\\Model\\Document', $doc);
         $entry = $doc->getRootEntry();
-        $this->assertType('\\Aphera\\Model\\Entry', $entry);
+        $this->assertInstanceOf('\\Aphera\\Model\\Entry', $entry);
         $this->assertEquals('urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a', $entry->getId());
     }
 }

@@ -46,6 +46,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     
     public function testNewWriter_Scenario_ReturnsWriter() {
         $writer = $this->factory->newWriter();
-        $this->assertType(__NAMESPACE__ . '\\Writer', $writer);
+        $this->assertInstanceOf(__NAMESPACE__ . '\\Writer', $writer);
     }
 }

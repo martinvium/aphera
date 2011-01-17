@@ -58,7 +58,7 @@ class HelperTest extends \PHPUnit_Framework_TestCase
         $id = "test2";
         $element = DOM\Helper::getFirstElementWithChildElementValue($entries, Core\Constants::ID, $id, Core\Constants::ATOM_NS);
         
-        $this->assertType("Aphera\\Parser\\DOM\\Entry", $element);
+        $this->assertInstanceOf("Aphera\\Parser\\DOM\\Entry", $element);
         $this->assertEquals("test2", $element->getId());
     }
     

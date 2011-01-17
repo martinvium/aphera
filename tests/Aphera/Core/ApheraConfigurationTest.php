@@ -38,7 +38,7 @@ class ApheraConfigurationTest extends \PHPUnit_Framework_TestCase
     
     public function testGetDefault_Scenario_ReturnsApheraConfiguration() {
         $config = ApheraConfiguration::getDefault();
-        $this->assertType(__NAMESPACE__ . '\\ApheraConfiguration', $config);
+        $this->assertInstanceOf(__NAMESPACE__ . '\\ApheraConfiguration', $config);
     }
     
     public function testGetExtensionFactories_ByDefault_ReturnsEmptyArray() {
@@ -57,7 +57,7 @@ class ApheraConfigurationTest extends \PHPUnit_Framework_TestCase
     
     public function testNewFactoryInstance_EmptyEnv_ReturnsDefaultFactory() {
         $factory = $this->config->newFactoryInstance($this->aphera);
-        $this->assertType(Constants::DEFAULT_FACTORY, $factory);
+        $this->assertInstanceOf(Constants::DEFAULT_FACTORY, $factory);
     }
     
     public function testNewFactoryInstance_CustomEnvFactory_ReturnsDefaultFactory() {
@@ -67,12 +67,12 @@ class ApheraConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->config->setTestEnvirmentVariable(Constants::CONFIG_FACTORY, $customFactoryClass);
         $factory = $this->config->newFactoryInstance($this->aphera);
         
-        $this->assertType($customFactoryClass, $factory);
+        $this->assertInstanceOf($customFactoryClass, $factory);
     }
     
     public function testNewParserInstance_EmptyEnv_ReturnsDefaultParser() {
         $parser = $this->config->newParserInstance($this->aphera);
-        $this->assertType(Constants::DEFAULT_PARSER, $parser);
+        $this->assertInstanceOf(Constants::DEFAULT_PARSER, $parser);
     }
     
     public function testNewParserInstance_CustomEnvParser_ReturnsDefaultParser() {
@@ -82,6 +82,6 @@ class ApheraConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->config->setTestEnvirmentVariable(Constants::CONFIG_PARSER, $customParserClass);
         $parser = $this->config->newParserInstance($this->aphera);
         
-        $this->assertType($customParserClass, $parser);
+        $this->assertInstanceOf($customParserClass, $parser);
     }
 }

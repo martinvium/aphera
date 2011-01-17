@@ -64,7 +64,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         $this->content->setValueElement($this->makeExampleElement());
         
         $element = $this->content->getValueElement();
-        $this->assertType('\\Aphera\\Model\\Element', $element);
+        $this->assertInstanceOf('\\Aphera\\Model\\Element', $element);
         $this->assertEquals("example", $element->getTagName());
     }
     

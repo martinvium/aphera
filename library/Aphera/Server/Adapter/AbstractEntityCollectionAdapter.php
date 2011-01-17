@@ -22,9 +22,32 @@ use Aphera\Server\Context\EmptyResponseContext;
 use Aphera\Server\ProviderHelper;
 use Aphera\Model\Entry;
 use Aphera\Server\Context\ResponseContextException;
+use Aphera\Server\Context\BasicResponseContext;
+use Aphera\Server\ResponseContext;
 
 abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
-{    
+{
+    /**
+     * @param RequestContext $request
+     * @return ResponseContext
+     */
+    public function getEntry(RequestContext $request) {
+        $name = $this->getResourceName($request);
+        $entity = $this->getEntityFromResourceName($name, $request);
+        if(! $entity) {
+            return ProviderHelper::notFound($request);
+        }
+
+        $entry = $this->getEntryFromEntity($entity, $request);
+        $response = new BasicResponseContext($entry);
+        $response->setStatus(200);
+        return $response;
+    }
+
+    /**
+     * @param RequestContext $request
+     * @return ResponseContext
+     */
     public function postEntry(RequestContext $request) {
         try {
             $entry = $this->getEntryFromRequest($request);
@@ -41,34 +64,43 @@ abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
             return $this->createErrorResponse($e);
         }
     }
-    
-    public function putEntry(RequestContext $request) {
-        $name = $this->getResourceName($request);
-        $origEntity = $this->getEntityFromResourceName($name, $request);
-        if(! $origEntity) {
-            return new EmptyResponseContext(404);
-        }
-        
-        $origEntry = $this->getEntryFromEntity($origEntity, $request);
-        if($origEntry) {
-            $entry = $this->getEntryFromRequest($request);
-            if($entry) {
-                if($origEntry->getId() != $entry->getId())
-                    return new EmptyResponseContext(409);
 
-                $entry->setUpdated(new \DateTime());
-                $this->putEntryWithCollectionProvider(
-                    $origEntity, 
-                    $entry,
-                    $request
-                );
-                
-                return new EmptyResponseContext(204);
-            } else {
+    /**
+     * @param RequestContext $request
+     * @return ResponseContext
+     */
+    public function putEntry(RequestContext $request) {
+        try {
+            $name = $this->getResourceName($request);
+            $origEntity = $this->getEntityFromResourceName($name, $request);
+            if(! $origEntity) {
+                return ProviderHelper::notFound($request);
+            }
+
+            $origEntry = $this->getEntryFromEntity($origEntity, $request);
+            if(! $origEntry) {
+                return ProviderHelper::notFound($request);
+            }
+
+            $entry = $this->getEntryFromRequest($request);
+            if(! $entry) {
                 return new EmptyResponseContext(400);
             }
-        } else {
-            return new EmptyResponseContext(404);
+
+            if($origEntry->getId() != $entry->getId()) {
+                return new EmptyResponseContext(409);
+            }
+
+            $entry->setUpdated(new \DateTime());
+            $this->putEntryWithCollectionProvider(
+                $origEntity,
+                $entry,
+                $request
+            );
+
+            return new EmptyResponseContext(204);
+        } catch(ResponseContextException $e) {
+            return $this->createErrorResponse($e);
         }
     }
     
@@ -94,12 +126,12 @@ abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
 
     public function headEntry(RequestContext $request) {
         $name = $this->getResourceName($request);
-        $entry = $this->getEntryByResourceName($name);
-        if($entry) {
-            return $this->getHeadEntryResponse($request, $name, $this->getEntryUpdated($entry));
-        } else {
+        $entity = $this->getEntityFromResourceName($name, $request);
+        if(! $entity) {
             return ProviderHelper::notFound($request);
         }
+
+        return $this->getHeadEntryResponse($request, $name, $this->getEntityUpdated($entity));
     }
     
     protected function getHeadEntryResponse(RequestContext $request, $name, $updated) {

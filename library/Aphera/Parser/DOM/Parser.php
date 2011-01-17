@@ -55,7 +55,7 @@ class Parser implements Core\Parser
         }
 
         if(! $doc->loadXML($xml, \LIBXML_NOERROR | \LIBXML_NOWARNING)) {
-            throw new ParseException('Failed to parse xml string');
+            throw new ParseException('Xml parsing failed: ' . var_export(\libxml_get_errors(), true));
         }
         return $doc;
     }

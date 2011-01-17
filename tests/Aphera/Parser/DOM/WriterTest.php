@@ -50,7 +50,7 @@ class WriterTest extends \PHPUnit_Framework_TestCase
         
         \rewind($this->stream);
         $xml = \stream_get_contents($this->stream);
-        var_dump($xml);
+        
         $this->assertContains('<?xml version="1.0" encoding="utf-8"?>', $xml);
         $this->assertContains('<entry xmlns="http://www.w3.org/2005/Atom"/>', $xml);
     }

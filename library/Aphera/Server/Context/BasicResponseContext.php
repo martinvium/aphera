@@ -45,6 +45,7 @@ class BasicResponseContext extends AbstractResponseContext
         if(! $writer) {
             $writer = $this->writer;
         }
+        
         $writer->writeTo($this->getEntity(), $stream);
     }
 }

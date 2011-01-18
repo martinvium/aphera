@@ -79,6 +79,18 @@ class ExtensibleElementTest extends \PHPUnit_Framework_TestCase
         $elements = $this->element->getChildrenWithName("summary");
         $this->assertEquals(0, count($elements));
     }
+
+    public function testSetChild_NoPreExisting_AddChild() {
+        $this->element->setChild($this->factory->newElement("summary_new"));
+        $elements = $this->element->getChildrenWithName("summary_new");
+        $this->assertEquals(1, count($elements));
+    }
+
+    public function testSetChild_ExistingChild_AddChild() {
+        $this->element->setChild($this->factory->newElement("summary"));
+        $elements = $this->element->getChildrenWithName("summary");
+        $this->assertEquals(1, count($elements));
+    }
     
     protected function changeElementAddChildren() {
         $this->element->appendChild($this->factory->newElement('summary'));

@@ -71,4 +71,9 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
             $this->removeChild($child);
         }
     }
+
+    public function setChild(Model\ExtensibleElement $element) {
+        $this->removeChildren($element->nodeName, $element->namespaceURI);
+        $this->appendChild($element);
+    }
 }

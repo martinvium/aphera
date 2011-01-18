@@ -65,13 +65,19 @@ class ExtensibleElementTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::TEST_NAMESPACE, $element->namespaceURI);
     }
     
-    public function testgetChildrenWithName_OnlyLocalName_ReturnBoth() {
+    public function testGetChildrenWithName_OnlyLocalName_ReturnBoth() {
         $this->changeElementAddNSChild();
         $elements = $this->element->getChildrenWithName("summary");
         $this->assertEquals(2, count($elements));
         $this->assertEquals("summary", $elements[0]->localName);
         $this->assertEquals("summary", $elements[1]->localName);
         $this->assertEquals(self::TEST_NAMESPACE, $elements[1]->namespaceURI);
+    }
+
+    public function testRemoveChildren_Scenario_Assertions() {
+        $this->element->removeChildren("summary");
+        $elements = $this->element->getChildrenWithName("summary");
+        $this->assertEquals(0, count($elements));
     }
     
     protected function changeElementAddChildren() {

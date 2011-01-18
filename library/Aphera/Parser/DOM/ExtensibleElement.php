@@ -65,4 +65,10 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
         }
         return $children;
     }
+
+    public function removeChildren($name, $uri = null) {
+        foreach($this->getChildrenWithName($name, $uri) as $child) {
+            $this->removeChild($child);
+        }
+    }
 }

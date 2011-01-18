@@ -23,4 +23,6 @@ interface CollectionInfo
     public function getTitle(RequestContext $request);
     
     public function getAccepts(RequestContext $request);
+
+    public function asCollectionElement(RequestContext $request);
 }

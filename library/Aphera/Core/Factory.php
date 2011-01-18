@@ -20,16 +20,31 @@ use Aphera\Model;
 
 interface Factory
 {
+    /**
+     * @return Parser
+     */
     public function newParser();
-    
+
+    /**
+     * @return Model\Document
+     */
     public function newDocument();
-    
+
     public function newService();
-    
-    public function newWorkspace();
-    
-    public function newCollection();
-    
+
+    /**
+     * @return Model\Workspace
+     */
+    public function newWorkspace(Model\ExtensibleElement $parent);
+
+    /**
+     * @return Model\Collection
+     */
+    public function newCollection(Model\ExtensibleElement $parent = null);
+
+    /**
+     * @return Writer
+     */
     public function newWriter();
     
     /**

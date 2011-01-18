@@ -48,4 +48,14 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $writer = $this->factory->newWriter();
         $this->assertInstanceOf(__NAMESPACE__ . '\\Writer', $writer);
     }
+
+    public function testNewWorkspace_NoParent_ReturnsWorkspace() {
+        $workspace = $this->factory->newWorkspace();
+        $this->assertInstanceOf(__NAMESPACE__ . '\\Workspace', $workspace);
+    }
+
+    public function testNewCollection_Scenario_ReturnsCollection() {
+        $collection = $this->factory->newCollection();
+        $this->assertInstanceOf(__NAMESPACE__ . '\\Collection', $collection);
+    }
 }

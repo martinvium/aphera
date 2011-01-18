@@ -19,19 +19,13 @@ namespace Aphera\Model;
 /**
  * @todo missing accepts
  */
-interface Collection extends ExtensibleElement
+interface Workspace extends ExtensibleElement
 {
     public function getTitle();
     
     public function setTitle($title);
     
-    public function getHref();
-    
-    public function getResolvedHref();
-    
-    public function setHref($href);
+    public function addCollection(Collection $collection);
 
-    public function setAccept(array $accepts);
-
-    public function getAccept();
+    public function getCollections();
 }

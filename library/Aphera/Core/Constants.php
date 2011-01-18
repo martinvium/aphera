@@ -34,6 +34,7 @@ final class Constants
 //    const DEFAULT_STREAMWRITER = "org.apache.abdera.parser.stax.StaxStreamWriter";
     
     const ATOM_NS = "http://www.w3.org/2005/Atom";
+    const APP_NS = "http://www.w3.org/2007/app";
     
     const FEED = "feed";
     const ENTRY = "entry";
@@ -48,6 +49,9 @@ final class Constants
     const TYPE = "type";
     const SRC = "src";
     const UPDATED = "updated";
+    const WORKSPACE = "workspace";
+    const COLLECTION = "collection";
+    const ACCEPT = "accept";
 
     const DATE_FORMAT = 'c';
 }

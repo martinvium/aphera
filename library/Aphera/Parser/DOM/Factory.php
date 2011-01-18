@@ -43,11 +43,21 @@ class Factory implements Core\Factory
     public function newCategory() {
         return $this->newElement('category', Core\Constants::ATOM_NS);
     }
-    
-    public function newCollection() {
-        return $this->newElement('collection', Core\Constants::ATOM_NS);
+
+    /**
+     * @return Collection
+     */
+    public function newCollection(Model\ExtensibleElement $parent = null) {
+        $collection = new Collection($this);
+        if($parent) {
+            $parent->appendChild($collection);
+        }
+        return $collection;
     }
-    
+
+    /**
+     * @return Writer
+     */
     public function newWriter() {
         return new Writer();
     }
@@ -142,8 +152,12 @@ class Factory implements Core\Factory
         return $this->newElement('updated', Core\Constants::ATOM_NS);
     }
     
-    public function newWorkspace() {
-        return $this->newElement('workspace', Core\Constants::ATOM_NS);
+    public function newWorkspace(Model\ExtensibleElement $parent = null) {
+        $workspace = new Workspace($this);
+        if($parent) {
+            $parent->appendChild($workspace);
+        }
+        return $workspace;
     }
     
     public function registerExtension(Core\ExtensionFactory $factory) {

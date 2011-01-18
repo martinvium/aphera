@@ -14,24 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Aphera\Model;
+namespace Aphera\Server;
 
-/**
- * @todo missing accepts
- */
-interface Collection extends ExtensibleElement
+interface WorkspaceInfo
 {
     public function getTitle();
-    
+
     public function setTitle($title);
-    
-    public function getHref();
-    
-    public function getResolvedHref();
-    
-    public function setHref($href);
 
-    public function setAccept(array $accepts);
+    public function addCollection($collection);
 
-    public function getAccept();
+    public function asWorkspaceElement(RequestContext $request);
 }

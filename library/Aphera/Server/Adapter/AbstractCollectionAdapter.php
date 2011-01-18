@@ -119,4 +119,12 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
     public function createErrorResponse($e) {
         return $e->getResponseContext();
     }
+
+    public function asCollectionElement(RequestContext $request) {
+        $collection = $request->getAphera()->getFactory()->newCollection();
+        $collection->setHref($this->getHref($request));
+        $collection->setTitle($this->getTitle($request));
+        $collection->setAccept($this->getAccepts($request));
+        return $collection;
+    }
 }

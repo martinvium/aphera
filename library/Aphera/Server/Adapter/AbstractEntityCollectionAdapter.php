@@ -137,6 +137,15 @@ abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
     protected function getHeadEntryResponse(RequestContext $request, $name, $updated) {
         return new EmptyResponseContext(200);
     }
+
+    public function getFeed(RequestContext $request) {
+        $feed = $request->getAphera()->getFactory()->newFeed();
+        $feed->setId('notdone');
+
+        $response = new BasicResponseContext($feed);
+        $response->setStatus(200);
+        return $response;
+    }
     
     /**
      * @return Entry

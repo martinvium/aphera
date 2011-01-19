@@ -30,6 +30,7 @@ class Workspace extends ExtensibleElement implements Model\Workspace
     }
 
     public function getCollections() {
+        $this->ownerDocument->registerNodeClass('DOMElement', '\\Aphera\\Parser\\DOM\\Collection');
         return $this->getChildrenWithName(Constants::COLLECTION, Constants::APP_NS);
     }
 

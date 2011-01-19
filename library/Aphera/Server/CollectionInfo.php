@@ -16,6 +16,8 @@
  */
 namespace Aphera\Server;
 
+use Aphera\Model\ExtensibleElement;
+
 interface CollectionInfo
 {
     public function getHref(RequestContext $request);
@@ -24,5 +26,5 @@ interface CollectionInfo
     
     public function getAccepts(RequestContext $request);
 
-    public function asCollectionElement(RequestContext $request);
+    public function asCollectionElement(RequestContext $request, ExtensibleElement $parent);
 }

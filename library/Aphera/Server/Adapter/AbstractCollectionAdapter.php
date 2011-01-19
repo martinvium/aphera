@@ -25,6 +25,7 @@ use Aphera\Server\Context\BasicResponseContext;
 use Aphera\Server\Context\ResponseContextException;
 
 use Aphera\Model\Entry;
+use Aphera\Model\ExtensibleElement;
 
 use Aphera\Core\Protocol\ParseException;
 
@@ -82,7 +83,7 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
     }
     
     public function getAccepts(RequestContext $request) {
-        return "application/atom+xml;type=entry";
+        return array("application/atom+xml;type=entry");
     }
     
     /**
@@ -120,8 +121,8 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
         return $e->getResponseContext();
     }
 
-    public function asCollectionElement(RequestContext $request) {
-        $collection = $request->getAphera()->getFactory()->newCollection();
+    public function asCollectionElement(RequestContext $request, ExtensibleElement $parent) {
+        $collection = $request->getAphera()->getFactory()->newCollection($parent);
         $collection->setHref($this->getHref($request));
         $collection->setTitle($this->getTitle($request));
         $collection->setAccept($this->getAccepts($request));

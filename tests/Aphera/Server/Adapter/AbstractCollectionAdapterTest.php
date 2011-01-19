@@ -19,6 +19,7 @@ namespace Aphera\Server\Adapter;
 use Aphera\Server\ResponseContext;
 use Aphera\Core\Aphera;
 use Aphera\Server\Context\DefaultRequestContext;
+use Aphera\Server\Provider\BasicProvider;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
@@ -35,13 +36,16 @@ class AbstractCollectionAdapterTest extends \PHPUnit_Framework_TestCase
      * @var Aphera\Server\RequestContext
      */
     protected $request;
-    
+
     public function setUp() {
         parent::setUp();
+
+        $provider = new BasicProvider();
+        $provider->init(new Aphera());
         
-        $this->request = new DefaultRequestContext($this->getMock('\\Aphera\\Server\\Provider'), 'GET', '', '');
+        $this->request = new DefaultRequestContext($provider, 'GET', '', '');
         
-        $this->adapter = new TestAsset\StubCollectionAdapter();
+        $this->adapter = $this->getMockForAbstractClass('\\Aphera\\Server\\Adapter\\AbstractCollectionAdapter');
         $this->adapter->setHref(self::HREF);
     }
     
@@ -81,11 +85,17 @@ class AbstractCollectionAdapterTest extends \PHPUnit_Framework_TestCase
     
     public function testGetAccepts_Scenario_ReturnsAtomEntrytType() {
         $type = $this->adapter->getAccepts($this->request);
-        $this->assertEquals("application/atom+xml;type=entry", $type);
+        $this->assertEquals(array("application/atom+xml;type=entry"), $type);
     }
     
     protected function assertNotAllowed(ResponseContext $response) {
         $this->assertEquals(405, $response->getStatus());
         $this->assertEquals('Method Not Allowed', $response->getStatusText());
+    }
+
+    public function testAsCollectionElement_Scenario_Assertions() {
+        $this->adapter->expects($this->any())->method('getTitle')->will($this->returnValue('mytitle'));
+        $element = $this->adapter->asCollectionElement($this->request, $this->request->getAphera()->getFactory()->newEntry());
+        $this->assertEquals('mytitle', $element->getTitle());
     }
 }

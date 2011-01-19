@@ -14,17 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Aphera\Server;
+namespace Aphera\Core;
 
-use Aphera\Server\CollectionAdapter;
-use Aphera\Server\RequestContext;
-use Aphera\Model\ExtensibleElement;
-
-interface WorkspaceInfo
+class TestCase extends \PHPUnit_Framework_TestCase
 {
-    public function getTitle(RequestContext $request);
+    protected function assertResponseContains($expectedString, ResponseContext $response) {
+        $outStream = $this->makeMemoryStream();
+        $response->writeTo($outStream, $response->getAphera()->getWriter());
+        \rewind($outStream);
+        $out = \stream_get_contents($outStream);
+        $this->assertContains($expectedString, $out);
+    }
 
-    public function getCollections(RequestContext $request);
-
-    public function asWorkspaceElement(RequestContext $request, ExtensibleElement $parent);
+    protected function makeMemoryStream() {
+        return fopen('php://memory', 'w');
+    }
 }

@@ -16,11 +16,23 @@
  */
 namespace Aphera\Core;
 
+use Aphera\Server\ResponseContext;
+
 class TestCase extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Aphera
+     */
+    protected $aphera;
+
+    public function setUp() {
+        parent::setUp();
+        $this->aphera = new Aphera();
+    }
+
     protected function assertResponseContains($expectedString, ResponseContext $response) {
         $outStream = $this->makeMemoryStream();
-        $response->writeTo($outStream, $response->getAphera()->getWriter());
+        $response->writeTo($outStream, $this->aphera->getWriter());
         \rewind($outStream);
         $out = \stream_get_contents($outStream);
         $this->assertContains($expectedString, $out);

@@ -58,4 +58,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $collection = $this->factory->newCollection();
         $this->assertInstanceOf(__NAMESPACE__ . '\\Collection', $collection);
     }
+
+    public function testNewService_Scenario_ReturnsService() {
+        $service = $this->factory->newService();
+        $this->assertInstanceOf(__NAMESPACE__ . '\\Service', $service);
+    }
 }

@@ -52,6 +52,7 @@ final class Constants
     const WORKSPACE = "workspace";
     const COLLECTION = "collection";
     const ACCEPT = "accept";
+    const SERVICE = "service";
 
     const DATE_FORMAT = 'c';
 }

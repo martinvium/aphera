@@ -138,7 +138,7 @@ class Factory implements Core\Factory
     
     public function newService() {
         $doc = $this->newDocument();
-        $el = $this->newElement('service', Core\Constants::ATOM_NS);
+        $el = new Service($this);
         $doc->appendChild($el);
         return $el;
     }

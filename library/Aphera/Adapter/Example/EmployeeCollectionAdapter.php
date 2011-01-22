@@ -93,11 +93,16 @@ class EmployeeCollectionAdapter extends AbstractEntityCollectionAdapter
     }
 
     protected function postEntryWithCollectionProvider(Entry $entry, RequestContext $request) {
+        $id = $entry->getId();
+        if(! $id) {
+            $id = \uniqid('entry');
+        }
+
         $employee = new Employee();
-        $employee->setId($entry->getId());
+        $employee->setId($id);
         $employee->setName($entry->getTitle());
         $employee->setUpdated($entry->getUpdated());
-        $this->employees[$entry->getId()] = $employee;
+        $this->employees[$id] = $employee;
         return $employee;
     }
     
@@ -114,14 +119,18 @@ class EmployeeCollectionAdapter extends AbstractEntityCollectionAdapter
         unset($this->employees[$id]);
     }
 
-    public function getFeed(RequestContext $request) {
-        throw new \Exception("not implemented");
-    }
-
     /**
      * @param Employee $entity 
      */
     public function getEntityName($entity) {
         return $entity->getId() . '-' . \str_replace(" ", "_", $entity->getName());
+    }
+
+    public function getEmployees() {
+        return $this->employees;
+    }
+
+    protected function getEntries(RequestContext $request) {
+        return $this->employees;
     }
 }

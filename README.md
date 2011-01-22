@@ -1,7 +1,5 @@
 # Aphera - PHP library for publishing and consuming AtomPub webservices
 
-## What is it?
-
 Library for publishing and consuming AtomPub based REST services. Based on the
 Apache Abdera project.
 
@@ -13,5 +11,6 @@ Apache Abdera project.
 
 ## Resources
 
-* [Wiki](https://github.com/martinvium/aphera/wiki)
+* [Wiki](http://github.com/martinvium/aphera/wiki/)
 * [Apache Abdera](http://abdera.apache.org/)
+* [AtomPub](http://www.atomenabled.org/)

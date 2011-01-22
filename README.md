@@ -1,7 +1,7 @@
 # Aphera PHP Library
 
-PHP library for publishing and consuming AtomPub based REST services. Based on the
-Apache Abdera project.
+PHP library for publishing and consuming AtomPub based REST services. Based on
+the Apache Abdera project.
 
 ## Requirements
 

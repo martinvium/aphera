@@ -104,7 +104,10 @@ class Factory implements Core\Factory
         }
         return $element;
     }
-    
+
+    /**
+     * @return Feed
+     */
     public function newFeed() {
         $doc = $this->newDocument();
         $element = new Feed($this);

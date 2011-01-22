@@ -20,13 +20,11 @@ use Aphera\Server\ResponseContext;
 use Aphera\Core\Aphera;
 use Aphera\Server\Context\DefaultRequestContext;
 use Aphera\Server\Context\StreamRequestContext;
+use Aphera\Core\TestCase;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
-/**
- * @group disable2
- */
-class AbstractEntityCollectionAdapterTest extends \PHPUnit_Framework_TestCase
+class AbstractEntityCollectionAdapterTest extends TestCase
 {
     const BASE_URI = '';
     
@@ -50,7 +48,7 @@ class AbstractEntityCollectionAdapterTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         
         $this->provider = new \Aphera\Server\Provider\BasicProvider();
-        $this->provider->init(new Aphera());
+        $this->provider->init($this->aphera);
         
         $this->adapter = $this->getMockForAbstractClass('\\Aphera\\Server\\Adapter\\AbstractEntityCollectionAdapter');
     }
@@ -142,14 +140,23 @@ class AbstractEntityCollectionAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(404, $response->getStatus());
     }
 
-// HELPERS
-    protected function assertResponseContains($expectedString, ResponseContext $response) {
-        $outStream = $this->makeMemoryStream();
-        $response->writeTo($outStream, $this->provider->getAphera()->getWriter());
-        \rewind($outStream);
-        $this->assertContains($expectedString, \stream_get_contents($outStream));
+    public function testGetFeed_TwoEntries_Returns200Response() {
+        $this->adapter->expects($this->any())->method('getEntries')->will($this->returnValue(array(
+            $this->getMock('\\Aphera\\Model\\Entry'),
+            $this->getMock('\\Aphera\\Model\\Entry'),
+            $this->getMock('\\Aphera\\Model\\Entry')
+        )));
+
+        $request = $this->makeRequest($this->makeMemoryStream(), 'GET', self::BASE_URI);
+        $response = $this->adapter->getFeed($request);
+
+        $this->assertEquals(200, $response->getStatus());
+        $entries = $response->getEntity()->getEntries();
+        $this->assertEquals(3, \count($entries));
+        $this->assertInstanceOf('\\Aphera\\Model\\Entry', $entries[0]);
     }
 
+// HELPERS
     protected function makeRequest($stream, $method, $uri) {
         return new StreamRequestContext($stream, $this->provider, $method, $uri, self::BASE_URI);
     }
@@ -157,9 +164,5 @@ class AbstractEntityCollectionAdapterTest extends \PHPUnit_Framework_TestCase
     protected function makeFileStream($filename) {
         $filename = \dirname(__FILE__) . '/_files/' . $filename;
         return \fopen($filename, 'r');
-    }
-
-    protected function makeMemoryStream() {
-        return \fopen('php://memory', 'w');
     }
 }

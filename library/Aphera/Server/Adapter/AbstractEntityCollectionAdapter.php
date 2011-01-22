@@ -16,14 +16,16 @@
  */
 namespace Aphera\Server\Adapter;
 
-use Aphera\Model\ExtensibleElement;
 use Aphera\Server\RequestContext;
 use Aphera\Server\Context\EmptyResponseContext;
 use Aphera\Server\ProviderHelper;
-use Aphera\Model\Entry;
 use Aphera\Server\Context\ResponseContextException;
 use Aphera\Server\Context\BasicResponseContext;
 use Aphera\Server\ResponseContext;
+
+use Aphera\Model\ExtensibleElement;
+use Aphera\Model\Feed;
+use Aphera\Model\Entry;
 
 abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
 {
@@ -138,16 +140,40 @@ abstract class AbstractEntityCollectionAdapter extends AbstractCollectionAdapter
         return new EmptyResponseContext(200);
     }
 
-    public function getFeed(RequestContext $request) {
-        $feed = $request->getAphera()->getFactory()->newFeed();
-        $feed->setId('notdone');
-
-        $response = new BasicResponseContext($feed);
-        $response->setStatus(200);
-        return $response;
-    }
-    
     /**
+     * @param RequestContext $request
+     * @return ResponseContext
+     */
+    public function getFeed(RequestContext $request) {
+        try {
+            $feed = $this->createFeedBase($request);
+            $this->addFeedDetails($feed, $request);
+            return $this->buildGetFeedResponse($feed);
+        } catch(ResponseContextException $e) {
+            return $this->createErrorResponse($e);
+        }
+    }
+
+    protected function addFeedDetails(Feed $feed, RequestContext $request) {
+        foreach($this->getEntries($request) as $entry) {
+            $entry = $feed->addEntry();
+            $this->addEntryDetails($entry, $request);
+        }
+    }
+
+    protected function addEntryDetails(Entry $entry, RequestContext $request) {
+        
+    }
+
+    /**
+     * @param RequestContext $request
+     * @return array of Entry
+     */
+    protected abstract function getEntries(RequestContext $request);
+
+    /**
+     * @param string $name
+     * @param RequestContext $request
      * @return Entry
      */
     protected abstract function getEntityFromResourceName($name, RequestContext $request);

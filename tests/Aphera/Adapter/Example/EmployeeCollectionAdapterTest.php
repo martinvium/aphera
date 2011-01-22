@@ -76,10 +76,13 @@ class EmployeeCollectionAdapterTest extends \PHPUnit_Framework_TestCase
         $request = $this->makeRequest($this->entryStream);
         $response = $this->adapter->postEntry($request);
         $this->assertEquals(201, $response->getStatus());
+        $employees = $this->adapter->getEmployees();
+        $this->assertEquals(1, \count($employees));
+        $this->assertInstanceOf('\\Aphera\\Adapter\\Example\\Employee', current($employees));
     }
 
     /**
-     * @todo should fseek be done by the parser?
+     * @todo should rewind be done by the parser?
      */
     public function testPostEntry_DoublePost_Returns400Response() {
         $this->markTestIncomplete('postentry does not check for duplicates');

@@ -26,6 +26,7 @@ use Aphera\Server\Context\ResponseContextException;
 
 use Aphera\Model\Entry;
 use Aphera\Model\ExtensibleElement;
+use Aphera\Model\Feed;
 
 use Aphera\Core\Protocol\ParseException;
 
@@ -36,7 +37,7 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
     abstract public function getId(RequestContext $request);
     
     abstract public function getAuthor(RequestContext $request);
-    
+
     public function getHref(RequestContext $request) {
         return $this->href;
     }
@@ -127,5 +128,21 @@ abstract class AbstractCollectionAdapter implements CollectionAdapter, Collectio
         $collection->setTitle($this->getTitle($request));
         $collection->setAccept($this->getAccepts($request));
         return $collection;
+    }
+
+    /**
+     * @param RequestContext $request
+     * @return Feed
+     */
+    protected function createFeedBase(RequestContext $request) {
+        $feed = $request->getAphera()->getFactory()->newFeed();
+        $feed->setId($this->getId($request));
+        return $feed;
+    }
+
+    protected function buildGetFeedResponse(Feed $feed) {
+        $response = new BasicResponseContext($feed);
+        $response->setStatus(200);
+        return $response;
     }
 }

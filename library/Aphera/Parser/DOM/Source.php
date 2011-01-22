@@ -58,7 +58,11 @@ class Source extends ExtensibleElement implements Model\Source
     }
     
     public function getTitle() {
-        return $this->getTitleElement()->getValue();
+        $title = $this->getTitleElement();
+        if(! $title) {
+            return null;
+        }
+        return $title->getValue();
     }
 
     public function getTitleElement() {

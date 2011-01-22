@@ -66,6 +66,15 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
         return $children;
     }
 
+    private function getChildWithName($name, $uri = null) {
+        $children = $this->getChildrenWithName($name, $uri);
+        if(! count($children)) {
+            return null;
+        }
+
+        return $children[0];
+    }
+
     public function removeChildren($name, $uri = null) {
         foreach($this->getChildrenWithName($name, $uri) as $child) {
             $this->removeChild($child);
@@ -73,7 +82,11 @@ class ExtensibleElement extends Element implements Model\ExtensibleElement
     }
 
     public function setChild(Model\ExtensibleElement $element) {
-        $this->removeChildren($element->nodeName, $element->namespaceURI);
-        $this->appendChild($element);
+        $child = $this->getChildWithName($element->nodeName, $element->namespaceURI);
+        if($child) {
+            $this->replaceChild($element, $child);
+        } else {
+            $this->appendChild($element);
+        }
     }
 }

@@ -50,7 +50,12 @@ class Entry extends ExtensibleElement implements Model\Entry
     }
 
     public function getId() {
-        return $this->getIdElement()->getValue();
+        $element = $this->getIdElement();
+        if($element) {
+            return $element->getValue();
+        }
+        
+        return null;
     }
 
     public function getIdElement() {
@@ -101,19 +106,19 @@ class Entry extends ExtensibleElement implements Model\Entry
     public function setId($id) {
         $element = $this->factory->newID();
         $element->nodeValue = (string)$id;
-        $this->appendChild($element);
+        $this->setChild($element);
     }
 
     public function setSummary($value) {
         $element = $this->factory->newSummary();
         $element->nodeValue = (string)$value;
-        $this->appendChild($element);
+        $this->setChild($element);
     }
 
     public function setTitle($value) {
         $element = $this->factory->newTitle();
         $element->nodeValue = (string)$value;
-        $this->appendChild($element);
+        $this->setChild($element);
     }
 
     public function getUpdatedElement() {
@@ -129,6 +134,6 @@ class Entry extends ExtensibleElement implements Model\Entry
     public function setUpdated(\DateTime $datetime) {
         $element = $this->factory->newUpdated();
         $element->nodeValue = $datetime->format(Constants::DATE_FORMAT);
-        $this->appendChild($element);
+        $this->setChild($element);
     }
 }

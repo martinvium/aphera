@@ -17,11 +17,12 @@
 namespace Tests\Aphera\Parser\DOM;
 
 use Aphera\Core;
+use Aphera\Core\TestCase;
 use Aphera\Parser\DOM;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . '/bootstrap.php');
 
-class ExtensibleElementTest extends \PHPUnit_Framework_TestCase
+class ExtensibleElementTest extends TestCase
 {
     const TEST_NAMESPACE = 'http://www.example.org/';
     
@@ -35,10 +36,9 @@ class ExtensibleElementTest extends \PHPUnit_Framework_TestCase
      */
     protected $element;
     
-    protected function setUp() {
+    public function setUp() {
         parent::setUp();
         
-        $this->aphera = new Core\Aphera();
         $this->factory = $this->aphera->getFactory();
         
         $doc = $this->factory->newDocument();
@@ -90,6 +90,12 @@ class ExtensibleElementTest extends \PHPUnit_Framework_TestCase
         $this->element->setChild($this->factory->newElement("summary"));
         $elements = $this->element->getChildrenWithName("summary");
         $this->assertEquals(1, count($elements));
+    }
+
+    public function testWriteTo_Scenario_Assertions() {
+        $stream = $this->makeMemoryStream();
+        $this->element->writeTo($stream);
+        $this->assertStreamContains('<test><summary/><summary2/></test>', $stream);
     }
     
     protected function changeElementAddChildren() {

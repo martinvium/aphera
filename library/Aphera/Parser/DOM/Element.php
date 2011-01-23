@@ -22,14 +22,20 @@ use Aphera\Core;
 class Element extends \DOMElement implements Model\Element
 {
     /**
+     * @var Factory
+     */
+    protected $factory;
+
+    /**
      * @var \DOMDocument
      */
     protected $ownerDocument;
     
-    public function __construct ($name, $value, $uri) {
+    public function __construct ($name, $value, $uri, Factory $factory = null) {
         parent::__construct($name, $value, $uri);
+        $this->factory = $factory;
     }
-    
+
     public function getTagName() {
         return $this->tagName;
     }
@@ -45,7 +51,11 @@ class Element extends \DOMElement implements Model\Element
         return $this->factory;
     }
 
-    public function writeTo(Core\Writer $out) {
-        throw new \Exception('not implemented');
+    public function setFactory(Factory $factory) {
+        $this->factory = $factory;
+    }
+
+    public function writeTo($stream) {
+        $this->factory->getAphera()->getWriter()->writeTo($this, $stream);
     }
 }

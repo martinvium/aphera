@@ -21,20 +21,11 @@ use Aphera\Core;
 
 class ExtensibleElement extends Element implements Model\ExtensibleElement
 {
-    /**
-     * @var Factory
-     */
-    protected $factory;
-    
     public function __construct ($name, $value, $uri, Factory $factory) {
-        parent::__construct($name, $value, $uri);
-        $this->factory = $factory;
+        parent::__construct($name, $value, $uri, $factory);
+        
     }
 
-    public function setFactory(Factory $factory) {
-        $this->factory = $factory;
-    }
-    
     /**
      * @param string $name
      * @param string $uri

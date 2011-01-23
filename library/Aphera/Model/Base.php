@@ -20,7 +20,13 @@ use Aphera\Core;
 
 interface Base
 {
-    public function writeTo(Core\Writer $out);
-    
+    /**
+     * @param stream $stream
+     */
+    public function writeTo($stream);
+
+    /**
+     * @return Core\Factory
+     */
     public function getFactory();    
 }

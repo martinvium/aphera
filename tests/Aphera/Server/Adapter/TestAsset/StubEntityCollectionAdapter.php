@@ -26,11 +26,11 @@ class StubEntityCollectionAdapter extends AbstractEntityCollectionAdapter
     public $testEntryByResourceName;
     
     public function getId() {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     public function getAuthor() {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     protected function getEntryByResourceName($name) {

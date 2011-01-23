@@ -46,6 +46,6 @@ class Element extends \DOMElement implements Model\Element
     }
 
     public function writeTo(Core\Writer $out) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
 }

@@ -68,14 +68,14 @@ class EmployeeCollectionAdapter extends AbstractEntityCollectionAdapter
      * @param Employee $entry 
      */
     public function getEntityAuthors($entry) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
 
     /**
      * @param Employee $entry 
      */
     public function getEntityContent($entry) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     protected function getEntityFromResourceName($name, RequestContext $request) {

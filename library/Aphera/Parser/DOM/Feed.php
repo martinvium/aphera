@@ -53,7 +53,7 @@ class Feed extends Source implements Model\Feed
     }
     
     public function insertEntry(Model\Entry $entry = null) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     /**

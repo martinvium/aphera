@@ -40,7 +40,7 @@ class Content extends ExtensibleElement implements Model\Content
     }
     
     public function getResolvedSrc() {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     public function setSrc($src) {

@@ -45,7 +45,7 @@ class Route
      * @param RequestContext $request
      */
     public function expand(RequestContext $request) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
 
     /**

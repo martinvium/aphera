@@ -22,19 +22,19 @@ use Aphera\Server\RequestContext;
 class StubCollectionAdapter extends AbstractCollectionAdapter
 {
     public function getId(RequestContext $request) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     public function getAuthor(RequestContext $request) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     public function getFeed(RequestContext $request) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
     
     public function getTitle(RequestContext $request) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
     }
 
     public static function getClass() {

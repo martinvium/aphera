@@ -84,7 +84,7 @@ class RouteManager implements Resolver
      * @see https://github.com/apache/abdera/blob/trunk/server/src/main/java/org/apache/abdera/protocol/server/impl/RouteManager.java
      */
     public function urlFor(RequestContext $request, $name, $object) {
-        throw new Exception('not implemented');
+        throw new \Exception('not implemented');
         $route = $this->get($name);
         if($route) {
             return $request->getContextPath() . $route->expand($this->getContext($object));

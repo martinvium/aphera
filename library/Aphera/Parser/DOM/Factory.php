@@ -31,15 +31,24 @@ class Factory implements Core\Factory
     public function __construct(Core\Aphera $aphera) {
         $this->aphera = $aphera;
     }
-    
+
+    /**
+     * @return Core\Aphera
+     */
     public function getAphera() {
         return $this->aphera;
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newCategories() {
         return $this->newElement('categories', Core\Constants::ATOM_NS);
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newCategory() {
         return $this->newElement('category', Core\Constants::ATOM_NS);
     }
@@ -64,7 +73,7 @@ class Factory implements Core\Factory
     
     /**
      * @param Model\ExtensibleElement $parent
-     * @return type 
+     * @return Content
      */
     public function newContent(Model\ExtensibleElement $parent = null) {
         $element = new Content($this);
@@ -73,7 +82,10 @@ class Factory implements Core\Factory
         }
         return $element;
     }
-    
+
+    /**
+     * @return Document
+     */
     public function newDocument() {
         return new Document($this->getAphera()->getFactory(), $this->version, $this->encoding);
     }
@@ -86,7 +98,10 @@ class Factory implements Core\Factory
     public function newElement($local, $uri = null) {
         return new ExtensibleElement($local, null, $uri, $this);
     }
-    
+
+    /**
+     * @return Entry
+     */
     public function newEntry(Model\ExtensibleElement $parent = null) {
         if(! $parent) {
             $parent = $this->newDocument();
@@ -96,7 +111,10 @@ class Factory implements Core\Factory
         $parent->appendChild($element);
         return $element;
     }
-    
+
+    /**
+     * @return Source
+     */
     public function newSource(Model\ExtensibleElement $parent = null) {
         $element = new Source(null, $this);
         if($parent) {
@@ -114,11 +132,17 @@ class Factory implements Core\Factory
         $doc->appendChild($element);
         return $element;
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newID() {
         return $this->newElement(Core\Constants::ID, Core\Constants::ATOM_NS);
     }
-    
+
+    /**
+     * @return Link
+     */
     public function newLink(Model\ExtensibleElement $parent = null) {
         $element =  $this->newElement(Core\Constants::LINK, Core\Constants::ATOM_NS);
         $element = new Link($this);
@@ -127,34 +151,55 @@ class Factory implements Core\Factory
         }
         return $element;
     }
-    
+
+    /**
+     * @return Parser
+     */
     public function newParser() {
         return new Parser($this->aphera);
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newPublished() {
         return $this->newElement('published', Core\Constants::ATOM_NS);
     }
-    
+
+    /**
+     * @return Service
+     */
     public function newService() {
         $doc = $this->newDocument();
         $el = new Service($this);
         $doc->appendChild($el);
         return $el;
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newSummary() {
         return $this->newElement(Core\Constants::SUMMARY, Core\Constants::ATOM_NS);
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newTitle() {
         return $this->newElement(Core\Constants::TITLE, Core\Constants::ATOM_NS);
     }
-    
+
+    /**
+     * @return ExtensibleElement
+     */
     public function newUpdated() {
         return $this->newElement('updated', Core\Constants::ATOM_NS);
     }
-    
+
+    /**
+     * @return Workspace
+     */
     public function newWorkspace(Model\ExtensibleElement $parent = null) {
         $workspace = new Workspace($this);
         if($parent) {

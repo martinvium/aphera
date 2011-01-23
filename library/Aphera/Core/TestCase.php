@@ -31,11 +31,16 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     protected function assertResponseContains($expectedString, ResponseContext $response) {
-        $outStream = $this->makeMemoryStream();
-        $response->writeTo($outStream, $this->aphera->getWriter());
-        \rewind($outStream);
-        $out = \stream_get_contents($outStream);
-        $this->assertContains($expectedString, $out);
+        $stream = $this->makeMemoryStream();
+        $response->writeTo($stream, $this->aphera->getWriter());
+        $this->assertStreamContains($expectedString, $stream);
+    }
+
+    protected function assertStreamContains($expectedString, $stream) {
+        \rewind($stream);
+        $contents = \stream_get_contents($stream);
+        var_dump($contents);
+        $this->assertContains($expectedString, $contents);
     }
 
     protected function makeMemoryStream() {

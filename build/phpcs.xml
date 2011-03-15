@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Aphera Coding Standards">
+    <description>The PEAR standard, but warnings at 90 chars.</description>
+
+    <!-- Include the whole PEAR standard -->
+    <rule ref="Zend"/>
+
+    <!-- Lines can be no longer than 90 chars -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="90"/>
+        </properties>
+    </rule>
+</ruleset>

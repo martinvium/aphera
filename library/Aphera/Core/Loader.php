@@ -37,7 +37,7 @@ class Loader
 			return;
 		}
 
-		$file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+		$file = str_replace('\\', \DIRECTORY_SEPARATOR, $class) . '.php';
 		require_once $file;
 	}
 }

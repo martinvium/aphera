@@ -1,5 +1,7 @@
 # Aphera PHP Library
 
+https://secure.travis-ci.org/martinvium/aphera.png
+
 PHP library for publishing and consuming AtomPub based REST services. Based on
 the Apache Abdera project.
 

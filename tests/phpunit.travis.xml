@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<phpunit bootstrap="./bootstrap.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true">
+
+    <testsuite name="aphera">
+        <directory>./Aphera/</directory>
+    </testsuite>
+
+    <groups>
+        <exclude>
+            <group>disable</group>
+        </exclude>
+    </groups>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../library</directory>
+        </whitelist>
+    </filter>
+</phpunit>
